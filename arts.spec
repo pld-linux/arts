@@ -1,41 +1,27 @@
-%define		_kde_ver	3.0.2
-%define		_ver		1.0.2
-# Set this to rc3 and such.
-# define		_sub_ver
-%define		_rel		1
-
-# Set up version, release and FTP directory.
-%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
-%{!?_sub_ver:	%define	_version	%{_ver}}
-%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
-%{!?_sub_ver:	%define	_release	%{_rel}}
-%{!?_sub_ver:	%define	_ftpdir	stable}
-%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
-
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_version}
-Release:	%{_release}
+Version:	1.0.2
+Release:	1
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{_kde_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/3.0.2/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-fmt.patch
+%ifnarch sparc sparcv9 sparc64
 BuildRequires:	alsa-lib-devel
+%endif
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	pkgconfig
+BuildRequires:	qt-devel >= 3.0.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
-BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.0.3
-BuildRequires:	XFree86-devel
-BuildRequires:	zlib-devel
 Requires:	qt >= 3.0.3
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -86,6 +72,7 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
+Requires:	qt-devel >= 3.0.3
 
 %description devel
 Header files required to compile programs using arts.
@@ -118,13 +105,10 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 #%{__make} -f Makefile.cvs
 
-CFLAGS="%{rpmcflags}"; export CFLAGS
+if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
+	CFLAGS="`pkg-config libpng12 --cflags` %{rpmcflags}"
+fi
 
-RES="0"
-rpmvercmp `rpm -q libpng --qf "%{version}\n" ` 1.2.0 || RES="$?"
-[ "$RES" -lt 2 ] && CFLAGS="$CFLAGS `pkg-config libpng12 --cflags`"
-
-CXXFLAGS="%{rpmcflags}"; export CXXFLAGS
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
