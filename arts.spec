@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2
-%define		_snap		030512
+%define		_snap		030516
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -20,6 +20,7 @@ Group:		Libraries
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 #Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 #Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
+Patch0:		%{name}-modules.patch
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -30,7 +31,6 @@ BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
-%{!?_with_nas:BuildConflicts:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.2-0.030428.1
 URL:		http://www.kde.org/
@@ -113,15 +113,25 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-#%patch0 -p1
+%patch0 -p1
 #%patch1 -p1
 
 %build
+
+%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
 	--with%{?_without_alsa:out}-alsa
+
+%if %{!?_with_nas:1}0
+# Cannot patch configure.in because it does not rebuild correctly on ac25
+sed -e 's@#define HAVE_LIBAUDIONAS 1@/* #undef HAVE_LIBAUDIONAS */@' \
+	< config.h \
+	> config.h.tmp
+mv -f config.h{.tmp,}
+%endif
 
 %{__make}
 
@@ -136,8 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 %post   	-p /sbin/ldconfig
 %postun 	-p /sbin/ldconfig
 
-%post	X11	-p /sbin/ldconfig
-%postun X11	-p /sbin/ldconfig
+#%post	X11	-p /sbin/ldconfig
+#%postun X11	-p /sbin/ldconfig
 
 %post	glib	-p /sbin/ldconfig
 %postun	glib	-p /sbin/ldconfig
@@ -157,19 +167,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libartsc.la
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
 %{_libdir}/libartscbackend.la
-%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartscbackend.so
 %{_libdir}/libartsdsp.la
-%attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsdsp.so
 %{_libdir}/libartsdsp_st.la
-%attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so
 %{_libdir}/libartsflow.la
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
 %{_libdir}/libartsflow_idl.la
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
 %{_libdir}/libartsgslplayobject.la
-%attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
 %{_libdir}/libartswavplayobject.la
-%attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so
 %{_libdir}/libkmedia2.la
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
 %{_libdir}/libkmedia2_idl.la
@@ -186,14 +201,30 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/*.so
+%{_libdir}/libartsc.so
+#%{_libdir}/libartscbackend.so
+#%{_libdir}/libartsdsp.so
+#%{_libdir}/libartsdsp_st.so
+%{_libdir}/libartsflow.so
+%{_libdir}/libartsflow_idl.so
+#%{_libdir}/libartsgslplayobject.so
+#%{_libdir}/libartswavplayobject.so
+%{_libdir}/libkmedia2.so
+%{_libdir}/libkmedia2_idl.so
+%{_libdir}/libgmcop.so
+%{_libdir}/libmcop.so
+%{_libdir}/libmcop_mt.so
+%{_libdir}/libqtmcop.so
+%{_libdir}/libsoundserver_idl.so
+#%{_libdir}/libx11globalcomm.so
 %{_includedir}/arts
 %{_includedir}/artsc
 
 %files X11
 %defattr(644,root,root,755)
 %{_libdir}/libx11globalcomm.la
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+#%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so
 
 %files glib
 %defattr(644,root,root,755)
