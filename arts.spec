@@ -8,7 +8,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1
-Release:	4
+Release:	5
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
@@ -149,34 +149,29 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
 %attr(755,root,root) %{_bindir}/testdhandle
-%attr(755,root,root) %{_libdir}/lib[am]*.so.*.*
-%attr(755,root,root) %{_libdir}/libs[!h]*.so.*.*
-%attr(755,root,root) %{_libdir}/lib[ams]*.la
-%attr(755,root,root) %{_libdir}/libkmedia*.so.*.*
-%attr(755,root,root) %{_libdir}/libkmedia*.la
+%{_libdir}/lib[!gqx]*.la
+%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
 %{_libdir}/mcop
-
-%files X11
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%attr(755,root,root) %{_libdir}/libx11globalcomm.la
-
-%files qt
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
-%attr(755,root,root) %{_libdir}/libqtmcop.la
-
-%files glib
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-%attr(755,root,root) %{_libdir}/libgmcop.la
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/lib[mqsxg]*.so
-%{_libdir}/libarts[!k]*.so
-%{_libdir}/libkmedia*.so
+%{_libdir}/*.so
 %{_includedir}/arts
 %{_includedir}/artsc
+
+%files X11
+%defattr(644,root,root,755)
+%{_libdir}/libx11globalcomm.la
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*
+
+%files glib
+%defattr(644,root,root,755)
+%{_libdir}/libgmcop.la
+%attr(755,root,root) %{_libdir}/libgmcop.so.*
+
+%files qt
+%defattr(644,root,root,755)
+%{_libdir}/libqtmcop.la
+%attr(755,root,root) %{_libdir}/libqtmcop.so.*
