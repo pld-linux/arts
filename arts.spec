@@ -13,7 +13,6 @@
 %{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
 
 Summary:	aRts sound server
-Summary(es):	Sound server used by KDE
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
@@ -46,9 +45,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 aRts sound server.
 
-%description -l es
-Sound server and analog analyzer/synthetizer used by KDE.
-
 %description -l pl
 Serwer d¼wiêku aRts.
 
@@ -66,13 +62,6 @@ outros.
 Summary:	X11 dependent part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca X11
 Group:		X11/Libraries
-Group(de):	X11/Libraries
-Group(es):	X11/Bibliotecas
-Group(fr):	X11/Librairies
-Group(pl):	X11/Biblioteki
-Group(pt_BR):	X11/Bibliotecas
-Group(ru):	X11/âÉÂÌÉÏÔÅËÉ
-Group(uk):	X11/â¦ÂÌ¦ÏÔÅËÉ
 
 %description X11
 X11 dependent part of aRts.
@@ -84,13 +73,6 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Group(de):	X11/Libraries
-Group(es):	X11/Bibliotecas
-Group(fr):	X11/Librairies
-Group(pl):	X11/Biblioteki
-Group(pt_BR):	X11/Bibliotecas
-Group(ru):	X11/âÉÂÌÉÏÔÅËÉ
-Group(uk):	X11/â¦ÂÌ¦ÏÔÅËÉ
 
 %description qt
 QT dependend part of aRts.
@@ -100,24 +82,12 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %package devel
 Summary:	Sound server - header files
-Summary(es):	Header files for compiling aRtsd applications
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 
 %description devel
 Header files required to compile programs using arts.
-
-%description devel -l es
-This package includes the header files you will need to compile
-applications for aRtsd.
 
 %description devel -l pl
 Pliki nag³ówkowe niezbêdne do budowania aplikacji korzystaj±cych z
