@@ -10,7 +10,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.4
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
@@ -18,6 +18,7 @@ Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.4/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	aa4bef1e80cd3795e3fd832471e348e9
 URL:		http://www.kde.org/
+Patch0:		%{name}-nas.patch
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -112,6 +113,7 @@ Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -128,15 +130,9 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 	--disable-rpath \
 	--enable-final \
 	--with-xinerama	\
-	--with%{?_without_alsa:out}-alsa
+	--with%{?_without_alsa:out}-alsa \
+	--with%{!?_with_nas:out}-nas
 
-%if %{!?_with_nas:1}0
-# Cannot patch configure.in because it does not rebuild correctly on ac25
-sed -e 's@#define HAVE_LIBAUDIONAS 1@/* #undef HAVE_LIBAUDIONAS */@' \
-	< config.h \
-	> config.h.tmp
-mv -f config.h{.tmp,}
-%endif
 %{__make}
 
 %install
