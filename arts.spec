@@ -18,8 +18,8 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-#Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
-#Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
+#Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
+#Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -130,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post   	-p /sbin/ldconfig
 %postun 	-p /sbin/ldconfig
 
@@ -141,9 +144,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	qt	-p /sbin/ldconfig
 %postun	qt	-p /sbin/ldconfig
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
