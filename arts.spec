@@ -24,12 +24,11 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
+BuildRequires:	libmad-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5-2
-# not needed, only ./configure check for this
-#BuildRequires:	libmad-devel
-#BuildRequires:	libvorbis-devel
+BuildRequires:	libvorbis-devel
 %{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
