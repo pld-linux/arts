@@ -1,7 +1,4 @@
 #
-# TODO: consider:
-# - separating artsc and its -devel? (but what are artsc deps?)
-#
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
@@ -142,7 +139,7 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 cp /usr/share/automake/config.sub admin
