@@ -2,25 +2,30 @@
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
+%bcond_without  esd	# disable esound support
+#bcond_with	cvs	# use cvs sources instead of source0
 #
-%define		_state		stable
-%define		_ver		1.2.3
-#%%define		_snap		040110
-%define		_kdever		3.2.3
-#
+
+%define		_state		unstable
+%define		_ver		1.3.0
+#define		_snap		040724
+
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	1
+Release:	0.rc1.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-#Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	fca8a9ec7538c4fe8e4c79767bb2a7e8
-# http://download.kde.org/stable/3.2.1/src/arts-1.2.1.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}-rc1.tar.bz2
+# Source0-md5:	851eb8eb8f6c28c289857322169d7120
+#if ! %{with cvs}
+#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}rc1.tar.bz2
+#else
+#Source0:	kdesource.tar.gz
+#endif
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -28,15 +33,15 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.13-3
-BuildRequires:	esound-devel
+%{?with_esd:BuildRequires:	esound-devel}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-BuildRequires:	unsermake >= 040511
 BuildRequires:	qt-devel >= 6:3.2.1-4
+BuildRequires:	unsermake >= 040805-1
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -95,9 +100,9 @@ arts.
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
 
-# separate from arts-devel because they are mostly independent and #
-have very # different deps there is no artsc base - it would be #
-small and would require arts - so there is no reason to separate
+# separate from arts-devel because they are mostly independent and
+# have very # different deps  there is no artsc base - it would be
+# small and would require arts - so there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
 Summary(pl):	Pliki programistyczne bibliotek artsc
@@ -154,12 +159,18 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-# qboosh leave it this way, 'cause its easier to change to snap later
+#if ! %{with cvs}
 %setup -q -n %{name}-%{version}
+#else
+#setup -q -n %{name} -D
+#endif
 
 %build
-cp %{_datadir}/automake/config.sub admin
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+
+cp /usr/share/automake/config.sub admin
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
