@@ -1,7 +1,7 @@
 # _without_alsa - disable alsa
 
-%define		_state		unstable
-%define		_kdever		kde-3.1-rc7
+%define		_state		stable
+%define		_kdever		3.1
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
