@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		030726
+%define		_snap		030901
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -127,7 +127,7 @@ Czê¶æ aRts wymagaj±ca QT.
 #%%{__automake}                                                                   
 #%%{__perl} admin/am_edit
 
-#%%{__make} -f Makefile.cvs
+%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
