@@ -1,0 +1,118 @@
+diff -urN -x CVS arts.orig/admin/acinclude.m4.in arts/admin/acinclude.m4.in
+--- arts.orig/admin/acinclude.m4.in	2005-02-09 23:21:09.000000000 +0100
++++ arts/admin/acinclude.m4.in	2005-03-09 11:53:14.000000000 +0100
+@@ -3194,6 +3194,51 @@
+   ifdef([AM_DEPENDENCIES], AC_REQUIRE([KDE_ADD_DEPENDENCIES]), [])
+ ])
+ 
++AC_DEFUN([KDE_CHECK_VISIBILITY_GCC_BUG],
++  [
++    AC_CACHE_CHECK([for gcc -fvisibility-inlines-hidden bug], kde_cv_val_gcc_visibility_bug,
++      [
++        AC_LANG_SAVE
++        AC_LANG_CPLUSPLUS
++
++        safe_CXXFLAGS=$CXXFLAGS
++        safe_LDFLAGS=$LDFLAGS
++        CXXFLAGS="$CXXFLAGS -fPIC -fvisibility-inlines-hidden -O0"
++        LDFLAGS="$LDFLAGS -shared -fPIC"
++
++        AC_TRY_LINK(
++        [
++          /* http://gcc.gnu.org/bugzilla/show_bug.cgi?id=19664 */
++          template<typename CharT>
++          struct VisTest
++          {
++            inline VisTest ();
++          };
++          template<typename CharT>
++          inline VisTest<CharT>::VisTest()
++          {}
++          extern template class VisTest<char>;  // It works if we drop that line
++          int some_function( int do_something ) __attribute__ ((visibility("default")));
++          int some_function( int )
++          {
++            VisTest<char> a;
++            return 0;
++          }
++        ], [/* elvis is alive */],
++        kde_cv_val_gcc_visibility_bug=no, kde_cv_val_gcc_visibility_bug=yes)
++
++        CXXFLAGS=$safe_CXXFLAGS
++        LDFLAGS=$safe_LDFLAGS
++        AC_LANG_RESTORE
++      ]
++    )
++
++    if test x$kde_cv_val_gcc_visibility_bug = xno; then
++      CXXFLAGS="$CXXFLAGS -fvisibility-inlines-hidden"
++    fi
++  ]
++)
++
+ AC_DEFUN([KDE_CHECK_AND_ADD_HIDDEN_VISIBILITY],
+ [
+   if test "$GXX" = "yes"; then
+@@ -3202,7 +3247,9 @@
+     KDE_CHECK_COMPILER_FLAG(fno-common, [CXXFLAGS="$CXXFLAGS -fno-common"])
+     KDE_CHECK_COMPILER_FLAG(fvisibility=hidden, 
+     [
+-        CXXFLAGS="$CXXFLAGS -fvisibility=hidden -fvisibility-inlines-hidden"
++        CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
++        KDE_CHECK_VISIBILITY_GCC_BUG
++
+         HAVE_GCC_VISIBILITY=1
+         AC_DEFINE_UNQUOTED(__KDE_HAVE_GCC_VISIBILITY, "$HAVE_GCC_VISIBILITY", [define to 1 if -fvisibility is supported])
+     ])
+diff -urN -x CVS arts.orig/flow/audioioalsa9.cc arts/flow/audioioalsa9.cc
+--- arts.orig/flow/audioioalsa9.cc	2004-05-26 20:50:18.000000000 +0200
++++ arts/flow/audioioalsa9.cc	2005-03-09 15:07:43.000000000 +0100
+@@ -394,7 +394,9 @@
+ 	int frames = snd_pcm_bytes_to_frames(m_pcm_capture, size);
+ 	int length;
+ 	while ((length = snd_pcm_readi(m_pcm_capture, buffer, frames)) < 0) {
+-		if (length == -EPIPE)
++		if (length == -EINTR)
++			continue; // Try again
++		else if (length == -EPIPE)
+ 			length = xrun(m_pcm_capture);
+ #ifdef HAVE_SND_PCM_RESUME
+ 		else if (length == -ESTRPIPE)
+@@ -413,7 +415,9 @@
+         int frames = snd_pcm_bytes_to_frames(m_pcm_playback, size);
+ 	int length;
+ 	while ((length = snd_pcm_writei(m_pcm_playback, buffer, frames)) < 0) {
+-		if (length == -EPIPE)
++		if (length == -EINTR)
++			continue; // Try again
++		else if (length == -EPIPE)
+ 			length = xrun(m_pcm_playback);
+ #ifdef HAVE_SND_PCM_RESUME
+ 		else if (length == -ESTRPIPE)
+diff -urN -x CVS arts.orig/flow/audioioalsa.cc arts/flow/audioioalsa.cc
+--- arts.orig/flow/audioioalsa.cc	2001-11-05 18:29:57.000000000 +0100
++++ arts/flow/audioioalsa.cc	2005-03-09 15:07:43.000000000 +0100
+@@ -374,7 +374,10 @@
+ 
+ int AudioIOALSA::read(void *buffer, int size)
+ {
+-	int length = snd_pcm_read(m_pcm_handle, buffer, size);
++	int length;
++	do {
++		length = snd_pcm_read(m_pcm_handle, buffer, size);
++	} while (length == -EINTR);
+ 	if(length == -EPIPE) {
+ 		snd_pcm_channel_status_t status;
+ 		(void)memset(&status, 0, sizeof(status));
+@@ -409,7 +412,10 @@
+ 
+ int AudioIOALSA::write(void *buffer, int size)
+ {
+-	while(snd_pcm_write(m_pcm_handle, buffer, size) != size) {
++	int length;
++	while((length = snd_pcm_write(m_pcm_handle, buffer, size)) != size) {
++	if (length == -EINTR)
++		continue; // Try again
+         snd_pcm_channel_status_t status;
+         (void)memset(&status, 0, sizeof(status));
+         status.channel = SND_PCM_CHANNEL_PLAYBACK;
