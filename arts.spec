@@ -1,13 +1,13 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc1
+%define		_kdever		kde-3.1-rc3
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.0
-Release:	2
+Release:	4
 Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
