@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2
-%define		_snap		030511
+%define		_snap		030512
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
