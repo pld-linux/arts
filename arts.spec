@@ -7,22 +7,22 @@
 %bcond_with	nas	# enable NAS support
 #
 
-%define		_state		snapshots
-%define		_ver		1.2.0
+%define		_state		unstable
+%define		_ver		1.1.95
 %define		_snap		040110
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}.%{_snap}
-Release:	1
-Epoch:		12
+Version:	1.1.95
+Release:	0.1
+Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	369fb5164fb994d3ac1f5c6befdde6de
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	76feb4e5d5559e3a97659cbc833dab3a
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -142,7 +142,7 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q -n %{name}-%{version}
 
 %build
 cp /usr/share/automake/config.sub admin
