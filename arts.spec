@@ -60,6 +60,7 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
+Requires:	%{name} >= %{version}
 
 %description qt
 QT dependend part of aRts.
@@ -73,6 +74,7 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	qt-devel >= 3.0.3
+Requires:	%{name} >= %{version}
 
 %description devel
 Header files required to compile programs using arts.
