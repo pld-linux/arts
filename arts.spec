@@ -15,7 +15,7 @@ Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.2/src/%{name}-%{version}.tar.bz2
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
@@ -31,8 +31,6 @@ URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
-
-%define		no_install_post_chrpath		1
 
 %description
 aRts sound server.
