@@ -28,6 +28,8 @@ URL:		http://www.kde.org/
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-utils
 BuildRequires:	esound-devel
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libmad-devel
@@ -140,6 +142,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# Debian manpages
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+cd debian
+for f in *.sgml ; do
+	base="$(basename $f .sgml)"
+	upper="$(echo ${base} | tr a-z A-Z)"
+	db2man $f
+	install ${upper}.1 $RPM_BUILD_ROOT%{_mandir}/man1/${base}.1
+done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -184,6 +196,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
+%{_mandir}/man1/artscat.1*
+%{_mandir}/man1/artsd.1*
+%{_mandir}/man1/artsdsp.1*
+%{_mandir}/man1/artsplay.1*
+%{_mandir}/man1/artsrec.1*
+%{_mandir}/man1/artsshell.1*
+%{_mandir}/man1/artswrapper.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -219,6 +238,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
 %{_includedir}/artsc
+%{_mandir}/man1/artsc-config.1*
+%{_mandir}/man1/mcopidl.1*
 
 %files X11
 %defattr(644,root,root,755)
