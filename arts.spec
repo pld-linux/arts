@@ -1,19 +1,29 @@
-%define		_sub_ver	rc3
 %define		_kde_ver	3.0
+%define		_ver		1.0.0
+# Set this to rc3 and such.
+%define		_sub_ver
+%define		_rel		1
+
+# Set up version, release and FTP directory.
+%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
+%{!?_sub_ver:	%define	_version	%{_ver}}
+%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
+%{!?_sub_ver:	%define	_release	%{_rel}}
+%{!?_sub_ver:	%define	_ftpdir	stable}
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+
 Summary:	aRts sound server
 Summary(es):	Sound server used by KDE
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	0.9.9
-Release:	1
+Version:	%{_version}
+Release:	%{_release}
 Epoch:		7
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-%{!?_sub_ver:	%define	_ftpdir	stable}
-%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{_kde_ver}%{_sub_ver}}
-Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{_kde_ver}/src/%{name}-%{version}.tar.bz2
 Requires:	qt >= 3.0.2-0.20020222.5
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -134,7 +144,6 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %files
-#-f arts.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artscat
 %attr(755,root,root) %{_bindir}/artsd
@@ -162,7 +171,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-#%doc arts/doc/*.gz
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
 %{_libdir}/lib[mqsx]*.so
@@ -170,7 +178,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkmedia*.so
 %{_includedir}/arts
 %{_includedir}/artsc
-
-#%files message
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/artsmessage
