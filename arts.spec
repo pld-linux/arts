@@ -5,20 +5,20 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		030623
+%define		_snap		030629
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	3
+Release:	1
 Epoch:		12
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	75e535f72399d40abff1d0ba450e3d62
+# Source0-md5:	9d46875d811674f00b2f47d6ec3f284a
 #Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 #Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 %ifnarch sparc sparcv9 sparc64
@@ -113,6 +113,7 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %prep
 %setup -q -n %{name}-%{_snap}
+#%patch0 -p1
 #%patch1 -p1
 
 %build
@@ -121,7 +122,6 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
-	--enable-final \
 	--with%{?_without_alsa:out}-alsa
 
 %if %{!?_with_nas:1}0
