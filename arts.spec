@@ -117,6 +117,8 @@ Czê¶æ aRts wymagaj±ca GLib.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
+%{__make} -f admin/Makefile.common cvs
+
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
