@@ -35,6 +35,7 @@ BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
+BuildRequires:  unsermake >= 040511
 BuildRequires:	qt-devel >= 6:3.2.1-4
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -144,6 +145,9 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %build
 cp /usr/share/automake/config.sub admin
+export UNSERMAKE=/usr/share/unsermake/unsermake
+%{__make} -f admin/Makefile.common cvs
+
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
