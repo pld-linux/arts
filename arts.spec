@@ -28,6 +28,7 @@ BuildRequires:	libpng-devel
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
+%{!?_with_nas:BuildConflicts:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
