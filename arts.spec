@@ -5,22 +5,20 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		030901
+%define		_snap		030918
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		12
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	10262860aefa208af29ce479f513de98
-#Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
-#Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
+# Source0-md5:	e27c70c7d12d01bd9d528580856ef906
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -29,10 +27,10 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
+BuildRequires:	libmad-devel
 BuildRequires:	libpng-devel
 BuildRequires:  libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
-BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.2-0.030428.1
@@ -116,18 +114,9 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-#%patch0 -p1
-#%patch1 -p1
 
 %build
-#%%{__libtoolize}                                                                 
-#%%{__aclocal}                                                                    
-#%%{__autoconf}                                                                   
-#%%{__autoheader}                                                                 
-#%%{__automake}                                                                   
-#%%{__perl} admin/am_edit
-
-%{__make} -f Makefile.cvs
+%{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
