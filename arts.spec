@@ -35,7 +35,7 @@ BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-BuildRequires:  unsermake >= 040511
+BuildRequires:	unsermake >= 040511
 BuildRequires:	qt-devel >= 6:3.2.1-4
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -82,7 +82,7 @@ arts.
 Arquivos para desenvolvimento com o o aRts.
 
 # separate from arts-devel because they are mostly independent and
-# have very # different deps  there is no artsc base - it would be
+# have very # different deps there is no artsc base - it would be
 # small and would require arts - so there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
