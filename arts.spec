@@ -18,6 +18,7 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	ff498b5cc743213ab8a1d0d5dc65b418
 URL:		http://www.kde.org/
@@ -140,6 +141,7 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
+#%setup -q -n %{name}
 %setup -q -n %{name}-%{_snap}
 
 %build
