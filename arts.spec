@@ -81,10 +81,9 @@ arts.
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
 
-# separate from arts-devel because they are mostly independent and have very
-# different deps
-# there is no artsc base - it would be small and would require arts - so there
-# is no reason to separate
+# separate from arts-devel because they are mostly independent and
+have very # different deps # there is no artsc base - it would be
+small and would require arts - so there # is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
 Summary(pl):	Pliki programistyczne bibliotek artsc
@@ -144,9 +143,9 @@ Pliki programistyczne dla biblioteki qtmcop.
 %setup -q -n %{name}
 
 %build
-cp /usr/share/automake/config.sub admin
+cp %{_datadir}/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
