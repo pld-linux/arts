@@ -19,7 +19,7 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_version}
 Release:	%{_release}
-Epoch:		7
+Epoch:		8
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
