@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2
-%define		_snap		030418
+%define		_snap		030423
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -15,7 +15,6 @@ Version:	1.2
 Release:	0.%{_snap}.1
 Epoch:		12
 License:	LGPL
-Vendor:		The KDE Team
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
