@@ -30,6 +30,7 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.13-3
 %{?with_esd:BuildRequires:	esound-devel}
 BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
@@ -81,6 +82,7 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	audiofile-devel
 Requires:	esound-devel
 Requires:	glib2-devel >= 2.0.0
+Requires:	jack-audio-connection-kit-devel
 Requires:	libmad-devel
 Requires:	libvorbis-devel
 %{?with_nas:Requires:	nas-devel}
