@@ -2,6 +2,9 @@
 # _with_nas		- enable NAS audio support
 # _without_alsa		- disable ALSA support
 #
+%ifarch sparc sparcv9 sparc64
+%define		_without_alsa	yes
+%endif
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
@@ -13,9 +16,7 @@ License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
-%ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
-%endif
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
@@ -80,6 +81,7 @@ Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	qt-devel >= 3.1
 Requires:	%{name} >= %{version}
+%{?_with_nas:Requires:	nas-devel}
 
 %description devel
 Header files required to compile programs using arts.
