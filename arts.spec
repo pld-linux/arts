@@ -82,8 +82,8 @@ arts.
 Arquivos para desenvolvimento com o o aRts.
 
 # separate from arts-devel because they are mostly independent and
-have very # different deps # there is no artsc base - it would be
-small and would require arts - so there # is no reason to separate
+# have very # different deps  there is no artsc base - it would be
+# small and would require arts - so there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
 Summary(pl):	Pliki programistyczne bibliotek artsc
