@@ -1,20 +1,21 @@
+# _without_alsa - disable alsa
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc3
+%define		_kdever		kde-3.1-rc4
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.0
-Release:	4
+Release:	5
 Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
-BuildRequires:	alsa-lib-devel
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
@@ -63,7 +64,7 @@ Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
 Requires:	%{name} >= %{version}
-Requires:	qt >= 3.0.5
+Requires:	qt >= 3.1
 
 %description qt
 QT dependend part of aRts.
@@ -76,7 +77,7 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 3.0.3
+Requires:	qt-devel >= 3.1
 Requires:	%{name} >= %{version}
 
 %description devel
@@ -93,6 +94,7 @@ Arquivos para desenvolvimento com o o aRts.
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
 Group:		X11/Libraries
+Requires:	glib >= 1.2.6
 
 %description glib
 GLib dependend part of aRts.
@@ -113,7 +115,8 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
 	--with-xinerama	\
-	--with-alsa 
+	--with%{?_without_alsa:out}-alsa
+
 
 %{__make}
 
