@@ -3,7 +3,7 @@
 # _without_alsa		- disable ALSA support
 #
 %ifarch sparc sparcv9 sparc64
-%define		_without_alsa	yes
+%define		_without_alsa	1
 %endif
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -117,7 +117,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 	--with-xinerama	\
 	--with%{?_without_alsa:out}-alsa
 
-%if %{?_with_nas:0}1
+%if %{!?_with_nas:1}0
 # Cannot patch configure.in because it does not rebuild correctly on ac25
 sed -e 's@#define HAVE_LIBAUDIONAS 1@/* #undef HAVE_LIBAUDIONAS */@' \
 	< config.h \
@@ -131,17 +131,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
-%post   X11 -p /sbin/ldconfig
-%postun X11 -p /sbin/ldconfig
+%post	X11 -p /sbin/ldconfig
+%postun	X11 -p /sbin/ldconfig
 
-%post   qt -p /sbin/ldconfig
-%postun qt -p /sbin/ldconfig
+%post	qt -p /sbin/ldconfig
+%postun	qt -p /sbin/ldconfig
 
-%post   glib -p /sbin/ldconfig
-%postun glib -p /sbin/ldconfig
+%post	glib -p /sbin/ldconfig
+%postun	glib -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
