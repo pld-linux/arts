@@ -12,7 +12,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	3
 Epoch:		12
 License:	LGPL
 Group:		Libraries
@@ -145,8 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %post   	-p /sbin/ldconfig
 %postun 	-p /sbin/ldconfig
 
-#%post	X11	-p /sbin/ldconfig
-#%postun X11	-p /sbin/ldconfig
+%post	X11	-p /sbin/ldconfig
+%postun X11	-p /sbin/ldconfig
 
 %post	glib	-p /sbin/ldconfig
 %postun	glib	-p /sbin/ldconfig
@@ -166,24 +166,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libartsc.la
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
 %{_libdir}/libartscbackend.la
-#%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
-%attr(755,root,root) %{_libdir}/libartscbackend.so
+%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
 %{_libdir}/libartsdsp.la
-#%attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
-%attr(755,root,root) %{_libdir}/libartsdsp.so
+%attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
 %{_libdir}/libartsdsp_st.la
-#%attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
-%attr(755,root,root) %{_libdir}/libartsdsp_st.so
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
 %{_libdir}/libartsflow.la
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
 %{_libdir}/libartsflow_idl.la
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
 %{_libdir}/libartsgslplayobject.la
-#%attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
-%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
 %{_libdir}/libartswavplayobject.la
-#%attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
-%attr(755,root,root) %{_libdir}/libartswavplayobject.so
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
 %{_libdir}/libkmedia2.la
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
 %{_libdir}/libkmedia2_idl.la
@@ -201,13 +196,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
 %{_libdir}/libartsc.so
-#%{_libdir}/libartscbackend.so
-#%{_libdir}/libartsdsp.so
-#%{_libdir}/libartsdsp_st.so
+%{_libdir}/libartscbackend.so
+%{_libdir}/libartsdsp.so
+%{_libdir}/libartsdsp_st.so
 %{_libdir}/libartsflow.so
 %{_libdir}/libartsflow_idl.so
-#%{_libdir}/libartsgslplayobject.so
-#%{_libdir}/libartswavplayobject.so
+%{_libdir}/libartsgslplayobject.so
+%{_libdir}/libartswavplayobject.so
 %{_libdir}/libkmedia2.so
 %{_libdir}/libkmedia2_idl.so
 %{_libdir}/libgmcop.so
@@ -215,15 +210,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libmcop_mt.so
 %{_libdir}/libqtmcop.so
 %{_libdir}/libsoundserver_idl.so
-#%{_libdir}/libx11globalcomm.so
+%{_libdir}/libx11globalcomm.so
 %{_includedir}/arts
 %{_includedir}/artsc
 
 %files X11
 %defattr(644,root,root,755)
 %{_libdir}/libx11globalcomm.la
-#%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 
 %files glib
 %defattr(644,root,root,755)
