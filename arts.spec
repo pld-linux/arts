@@ -16,7 +16,7 @@ License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.4/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	ee04953fe0e983de424430081bb7bc9e
+# Source0-md5:	aa4bef1e80cd3795e3fd832471e348e9
 URL:		http://www.kde.org/
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
