@@ -110,7 +110,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
 %ifnarch sparc sparcv9 sparc64
-	--with-alsa
+	--with-alsa \
 %endif
 	--disable-rpath \
 	--with-xinerama
