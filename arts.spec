@@ -4,7 +4,7 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 %define	_kdever	3.0.3
 Version:	1.0.3
-Release:	3
+Release:	4
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
@@ -22,7 +22,6 @@ BuildRequires:	libpng-devel
 #BuildRequires:	mad-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.0.5
-Requires:	qt >= 3.0.5
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,6 +60,7 @@ Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
 Requires:	%{name} >= %{version}
+Requires:	qt >= 3.0.5
 
 %description qt
 QT dependend part of aRts.
