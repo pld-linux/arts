@@ -18,6 +18,7 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+#Source0-md5:	5340fa3de1d2a83d025c70380ce1bd9c
 #Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 #Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 Patch0:		%{name}-modules.patch
