@@ -18,7 +18,8 @@ Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+#Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:	http://ftp.man.szczecin.pl/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	6a0a03c24a20c43a8e443a5484bb9fef
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
