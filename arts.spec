@@ -2,21 +2,17 @@
 # _with_nas		- enable NAS audio support
 # _without_alsa		- disable ALSA support
 #
-
-%define		_state		stable
-%define		_ver		3.1.2
-
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.2
-Release:	0.1
+Release:	1
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -28,7 +24,6 @@ BuildRequires:	libpng-devel
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
-%{!?_with_nas:BuildConflicts:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
@@ -117,10 +112,18 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
+	--disable-rpath \
 	--enable-final \
 	--with-xinerama	\
 	--with%{?_without_alsa:out}-alsa
 
+%if %{?_with_nas:0}1
+# Cannot patch configure.in because it does not rebuild correctly on ac25
+sed -e 's@#define HAVE_LIBAUDIONAS 1@/* #undef HAVE_LIBAUDIONAS */@' \
+	< config.h \
+	> config.h.tmp
+mv -f config.h{.tmp,}
+%endif
 %{__make}
 
 %install
@@ -131,13 +134,13 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post X11   -p /sbin/ldconfig
+%post   X11 -p /sbin/ldconfig
 %postun X11 -p /sbin/ldconfig
 
-%post qt   -p /sbin/ldconfig
+%post   qt -p /sbin/ldconfig
 %postun qt -p /sbin/ldconfig
 
-%post glib   -p /sbin/ldconfig
+%post   glib -p /sbin/ldconfig
 %postun glib -p /sbin/ldconfig
 
 %clean
