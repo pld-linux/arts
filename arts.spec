@@ -15,7 +15,7 @@ Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.2/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.3/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	f04eb6ef387d63741561ab6623696322
 URL:		http://www.kde.org/
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
