@@ -33,7 +33,6 @@ BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
-BuildRequires:	unsermake >= 040511
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	unsermake >= 040511
