@@ -2,7 +2,7 @@
 %define		_ver		1.0.0
 # Set this to rc3 and such.
 # define		_sub_ver
-%define		_rel		1
+%define		_rel		2
 
 # Set up version, release and FTP directory.
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
@@ -24,7 +24,19 @@ License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{_kde_ver}/src/%{name}-%{version}.tar.bz2
-Requires:	qt >= 3.0.2-0.20020222.5
+BuildRequires:	alsa-lib-devel
+BuildRequires:	audiofile-devel
+BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel >= 1.2.2-2
+# not needed, only ./configure check for this
+#BuildRequires:	libvorbis-devel
+#BuildRequires:	mad-devel
+BuildRequires:	pkgconfig
+BuildRequires:	qt-devel >= 3.0.3
+BuildRequires:	XFree86-devel
+BuildRequires:	zlib-devel
+Requires:	qt >= 3.0.3
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -114,6 +126,17 @@ arts.
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
 
+%package glib
+Summary:	GLib dependend part of aRts
+Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
+Group:		X11/Libraries
+
+%description glib
+GLib dependend part of aRts.
+
+%description glib -l pl
+Czê¶æ aRts wymagaj±ca GLib.
+
 %prep
 %setup -q
 
@@ -123,12 +146,13 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 #%{__make} -f Makefile.cvs
 
-CFLAGS="%{rpmcflags}"
-CXXFLAGS="%{rpmcflags}"
+CFLAGS="%{rpmcflags} `pkg-config libpng12 --cflags`"; export CFLAGS
+CXXFLAGS="%{rpmcflags}"; export CXXFLAGS
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
-	--with-alsa \
+	--with-xinerama	\
+	--with-alsa 
 
 %{__make}
 
@@ -169,11 +193,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
 %attr(755,root,root) %{_libdir}/libqtmcop.la
 
+%files glib
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgmcop.la
+
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/lib[mqsx]*.so
+%{_libdir}/lib[mqsxg]*.so
 %{_libdir}/libarts[!k]*.so
 %{_libdir}/libkmedia*.so
 %{_includedir}/arts
