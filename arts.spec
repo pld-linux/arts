@@ -22,7 +22,7 @@ Group:		Libraries
 %if ! %{with cvs}
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	bdd3a004065d7ebd842130eb533d531e
+##%% Source0-md5:	bdd3a004065d7ebd842130eb533d531e
 %else
 Source0:	kdesource.tar.gz
 %endif
