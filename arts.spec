@@ -2,26 +2,27 @@ Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.0.2
-Release:	1.1
+%define	_kdever	3.0.3
+Version:	1.0.3
+Release:	0.1
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/stable/3.0.2/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-fmt.patch
 %ifnarch sparc sparcv9 sparc64
 BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
-BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.0.3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
+BuildRequires:	pkgconfig
+BuildRequires:	qt-devel >= 3.0.3
 Requires:	qt >= 3.0.3
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
