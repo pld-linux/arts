@@ -16,7 +16,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Group:		Libraries
@@ -63,7 +63,7 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-# not necessary for all libs (artsc in particular), but propagated by artsflow
+# not necessary for all libs (e.g. mcop), but propagated by artsflow
 %{?with_alsa:Requires:	alsa-lib-devel}
 Requires:	audiofile-devel
 Requires:	esound-devel
@@ -81,6 +81,26 @@ arts.
 
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
+
+# separate from arts-devel because they are mostly independent and have very
+# different deps
+# there is no artsc base - it would be small and would require arts - so there
+# is no reason to separate
+%package -n artsc-devel
+Summary:	Development files for artsc libraries
+Summary(pl):	Pliki programistyczne bibliotek artsc
+Group:		Development/Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	glib2-devel >= 2.0.0
+Conflicts:	arts-devel < 12:1.2.0.031126-2
+
+%description -n artsc-devel
+Development files for artsc libraries (C interface to aRts sound
+system).
+
+%description -n artsc-devel -l pl
+Pliki programistyczne bibliotek artsc (interfejsu w C do systemu
+d¼wiêku aRts).
 
 %package X11
 Summary:	X11 dependent part of aRts
@@ -206,12 +226,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%attr(755,root,root) %{_libdir}/libartsc.so
-%attr(755,root,root) %{_libdir}/libartscbackend.so
-%attr(755,root,root) %{_libdir}/libartsdsp.so
-%attr(755,root,root) %{_libdir}/libartsdsp_st.so
 %attr(755,root,root) %{_libdir}/libartsflow.so
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so
@@ -225,7 +240,6 @@ rm -rf $RPM_BUILD_ROOT
 # it seems to be only (lt_)dlopened, nothing links with it - so not needed
 # %attr(755,root,root) %{_libdir}/libx11globalcomm.so
 # shared libraries
-%{_libdir}/libartsc.la
 %{_libdir}/libartsflow.la
 %{_libdir}/libartsflow_idl.la
 %{_libdir}/libgmcop.la
@@ -237,9 +251,18 @@ rm -rf $RPM_BUILD_ROOT
 #
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
+%{_mandir}/man1/mcopidl.1*
+
+%files -n artsc-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/artsc-config
+%attr(755,root,root) %{_libdir}/libartsc.so
+%attr(755,root,root) %{_libdir}/libartscbackend.so
+%attr(755,root,root) %{_libdir}/libartsdsp.so
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so
+%{_libdir}/libartsc.la
 %{_includedir}/artsc
 %{_mandir}/man1/artsc-config.1*
-%{_mandir}/man1/mcopidl.1*
 
 %files X11
 %defattr(644,root,root,755)
