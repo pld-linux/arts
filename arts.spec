@@ -3,21 +3,20 @@
 # _without_alsa		- disable ALSA support
 #
 
-%define		_state		snapshots
-%define		_ver		030317
+%define		_state		stable
+%define		_ver		3.1.1
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.2
-Release:	0.%{_ver}.1
+Version:	1.1.1
+Release:	0.2
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -110,8 +109,8 @@ GLib dependend part of aRts.
 Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
-%setup -q -n %{name}-%{_ver}
-%patch0 -p1
+%setup -q
+
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
@@ -153,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
-##%attr(755,root,root) %{_bindir}/testdhandle
+%attr(755,root,root) %{_bindir}/testdhandle
 %{_libdir}/lib[!gqx]*.la
 %attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
 %{_libdir}/mcop
