@@ -6,7 +6,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.90
-%define		_snap		040424
+%define		_snap		040430
 %define		_packager	adgor
 
 Summary:	aRts sound server
