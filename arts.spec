@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2
-%define		_snap		030518
+%define		_snap		030525
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -18,7 +18,7 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-#Source0-md5:	5340fa3de1d2a83d025c70380ce1bd9c
+# Source0-md5:	c7d05f6ce74f0a2105c4a0be1b826f8b
 #Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 #Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 Patch0:		%{name}-modules.patch
