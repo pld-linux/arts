@@ -1,15 +1,18 @@
+
+%define		_state		unstable
+%define		_kdever		kde-3.1-beta1
+
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-%define	_kdever	3.0.8
 Version:	1.1.0
 Release:	1
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
 BuildRequires:	alsa-lib-devel
 %endif
