@@ -130,17 +130,17 @@ X11 dependent part of aRts (x11globalcomm module).
 Czê¶æ aRts wymagaj±ca X11 (modu³ x11globalcomm).
 
 %package qt
-Summary:	QT dependend part of aRts
-Summary(pl):	Czê¶æ aRts wymagaj±ca QT
+Summary:	Qt dependend part of aRts
+Summary(pl):	Czê¶æ aRts wymagaj±ca Qt
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	qt >= 6:3.2.1-4
 
 %description qt
-QT dependend part of aRts (qtmcop library).
+Qt dependend part of aRts (qtmcop library).
 
 %description qt -l pl
-Czê¶æ aRts wymagaj±ca QT (biblioteka qtmcop).
+Czê¶æ aRts wymagaj±ca Qt (biblioteka qtmcop).
 
 %package qt-devel
 Summary:	Development files for qtmcop library
