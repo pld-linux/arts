@@ -19,6 +19,7 @@ BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
+BuildRequires:	nas-devel
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.0.5
 URL:		http://www.kde.org/
