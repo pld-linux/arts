@@ -18,7 +18,7 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	84877632917893438c629803e7b004f3
+# Source0-md5:	83ca7e7a33c55de34e12bfc360190795
 # http://download.kde.org/stable/3.2.1/src/arts-1.2.1.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
