@@ -1,8 +1,8 @@
-%define		_kde_ver	3.0
-%define		_ver		1.0.0
+%define		_kde_ver	3.0.1
+%define		_ver		1.0.1
 # Set this to rc3 and such.
 # define		_sub_ver
-%define		_rel		2
+%define		_rel		1
 
 # Set up version, release and FTP directory.
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
