@@ -1,7 +1,7 @@
 #
 
 %bcond_without alsa	# disables ALSA support
-%bcond_with nas		# enables NAS support 
+%bcond_without nas	# disables NAS support 
 
 %ifarch	sparc sparcv9 sparc64
 %undefine with_alsa
@@ -9,7 +9,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		031024
+%define		_snap		031103
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -22,7 +22,7 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	a3cbe385442102fcda85f2d68938c7d3
+# Source0-md5:	62da12ce1a7616707091ea61d9d07904
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -38,8 +38,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		no_install_post_chrpath		1
 
 %description
 aRts sound server.
@@ -125,6 +123,7 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
+	--disable-rpath \
 	--enable-final \
 	--with%{?without_alsa:out}-alsa
 
