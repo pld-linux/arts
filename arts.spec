@@ -3,13 +3,11 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 #
-
 %define		_state		stable
-%define		_ver		1.2.1
+%define		_ver		1.2.2
 #%%define		_snap		040110
-
-%define		_kdever		3.2.1
-
+%define		_kdever		3.2.2
+#
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
@@ -38,6 +36,7 @@ BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
+BuildRequires:	unsermake
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -82,10 +81,9 @@ arts.
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
 
-# separate from arts-devel because they are mostly independent and have very
-# different deps
-# there is no artsc base - it would be small and would require arts - so there
-# is no reason to separate
+# separate from arts-devel because they are mostly independent and
+# have very # different deps  there is no artsc base - it would be
+# small and would require arts - so there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
 Summary(pl):	Pliki programistyczne bibliotek artsc
@@ -147,7 +145,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %build
 cp /usr/share/automake/config.sub admin
-%{__make} -f admin/Makefile.common cvs
+export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
@@ -167,8 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cd debian
-for f in man/*.sgml ; do
+cd debian/man
+for f in *.sgml ; do
 	base="$(basename $f .sgml)"
 	upper="$(echo ${base} | tr a-z A-Z)"
 	db2man $f
