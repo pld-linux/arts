@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		030918
+%define		_snap		030930
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -18,7 +18,7 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	e27c70c7d12d01bd9d528580856ef906
+# Source0-md5:	4118bbd0cb3b1df24968863225c9fdce
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -33,7 +33,7 @@ BuildRequires:  libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.2-0.030428.1
+BuildRequires:	qt-devel >= 6:3.2.1-4
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -60,7 +60,7 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 3.1
+Requires:	qt-devel >= 6:3.2.1-4
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-X11 = %{epoch}:%{version}-%{release}
 Requires:	%{name}-glib = %{epoch}:%{version}-%{release}
@@ -80,6 +80,7 @@ Arquivos para desenvolvimento com o o aRts.
 Summary:	X11 dependent part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca X11
 Group:		X11/Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description X11
 X11 dependent part of aRts.
@@ -91,6 +92,7 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
 Group:		X11/Libraries
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glib >= 1.2.6
 
 %description glib
@@ -103,8 +105,8 @@ Czê¶æ aRts wymagaj±ca GLib.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{epoch}:%{version}
-Requires:	qt >= 3.1
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	qt >= 6:3.2.1-4
 
 %description qt
 QT dependend part of aRts.
