@@ -7,7 +7,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.90
-%define		_snap		040522
+%define		_snap		040523
 %define		_packager	adgor
 
 Summary:	aRts sound server
@@ -23,8 +23,10 @@ Group:		Libraries
 #Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 %if %{with cvs}
 Source0:	kdesource.tar.gz
+# Source0-md5:	5d1dcfffd8ee0f4b717ac75d6d8b0525
 %else
-Source0:	%{name}-%{_snap}.tar.bz2
+Source0:       ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
+#Source0:	%{name}-%{_snap}.tar.bz2
 #%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
 %endif
 URL:		http://www.kde.org/
