@@ -7,7 +7,6 @@ Version:	1.0.4
 Release:	3
 Epoch:		11
 License:	LGPL
-Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
