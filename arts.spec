@@ -26,7 +26,7 @@ BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
-BuildRequires:	docbook-utils >= 0.6.13-3
+BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	jack-audio-connection-kit-devel
