@@ -5,22 +5,24 @@
 %bcond_without	esd	# disable esound support
 #
 
-%define		_state		stable
-%define		_kdever		3.3.1
-%define		_ver		1.3.1
+%define		_state		unstable
+%define		_kdever		3.3.90
+%define		_ver		1.3.90
+%define		_snap		041113
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}
-Release:	2
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	26554e4c47d9a52bc20a07e39d32a731
-# Source0-size:	967242
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	77085266a8746f88506f6a4469690a6d
+##%% Source0-size:	967242
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -157,12 +159,12 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_snap}
 
 %build
 cp -f /usr/share/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+#export PATH=/usr/share/unsermake:$PATH
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -181,6 +183,8 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+#export PATH=/usr/share/unsermake:$PATH
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
