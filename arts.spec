@@ -2,9 +2,9 @@ Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-%define	_kdever	3.0.4
-Version:	1.0.4
-Release:	3
+%define	_kdever	3.0.5a
+Version:	1.0.5a
+Release:	0.1
 Epoch:		11
 License:	LGPL
 Group:		Libraries
@@ -58,7 +58,7 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{version}
+Requires:	%{name} = %{version}
 Requires:	qt >= 3.0.5
 
 %description qt
@@ -72,8 +72,8 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 3.0.3
-Requires:	%{name} >= %{version}
+Requires:	qt-devel >= 3.0.5
+Requires:	%{name} = %{version}
 
 %description devel
 Header files required to compile programs using arts.
