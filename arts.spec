@@ -33,6 +33,7 @@ BuildRequires:	qt-devel >= 3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
+%define		_prefix		/usr/X11R6
 
 %description
 aRts sound server.
