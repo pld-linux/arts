@@ -4,13 +4,12 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 %define	_kdever	3.0.3
 Version:	1.0.3
-Release:	0.1
+Release:	0.5
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-fmt.patch
 %ifnarch sparc sparcv9 sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -22,8 +21,8 @@ BuildRequires:	libpng-devel
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.0.3
-Requires:	qt >= 3.0.3
+BuildRequires:	qt-devel >= 3.0.5
+Requires:	qt >= 3.0.5
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -100,7 +99,6 @@ Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
