@@ -64,7 +64,7 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{version}
+Requires:	%{name} >= %{epoch}:%{version}
 Requires:	qt >= 3.1
 
 %description qt
@@ -79,7 +79,7 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	qt-devel >= 3.1
-Requires:	%{name} >= %{version}
+Requires:	%{name} >= %{epoch}:%{version}
 %{?_with_nas:Requires:	nas-devel}
 
 %description devel
