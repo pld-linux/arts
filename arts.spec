@@ -4,8 +4,8 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 %define	_kdever	3.0.4
 Version:	1.0.4
-Release:	1
-Epoch:		10
+Release:	2
+Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
@@ -122,13 +122,13 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post X11   -p /sbin/ldconfig
+%post   X11 -p /sbin/ldconfig
 %postun X11 -p /sbin/ldconfig
 
-%post qt   -p /sbin/ldconfig
+%post   qt -p /sbin/ldconfig
 %postun qt -p /sbin/ldconfig
 
-%post glib   -p /sbin/ldconfig
+%post   glib -p /sbin/ldconfig
 %postun glib -p /sbin/ldconfig
 
 %clean
