@@ -11,13 +11,14 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.2
-Release:	0.%{_ver}.1
+Release:	0.%{_ver}.2
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
+Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
