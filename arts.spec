@@ -2,9 +2,9 @@ Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-%define	_kdever	3.0.3
-Version:	1.0.3
-Release:	4
+%define	_kdever	3.0.8
+Version:	1.1.0
+Release:	1
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
@@ -143,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
+%attr(755,root,root) %{_bindir}/testdhandle
 %attr(755,root,root) %{_libdir}/lib[am]*.so.*.*
 %attr(755,root,root) %{_libdir}/libs[!h]*.so.*.*
 %attr(755,root,root) %{_libdir}/lib[ams]*.la
