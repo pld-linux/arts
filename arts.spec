@@ -19,15 +19,13 @@ Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
+%if ! %{with cvs}
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-%if %{with cvs}
-Source0:	kdesource.tar.gz
-# Source0-md5:	5d1dcfffd8ee0f4b717ac75d6d8b0525
+##%% Source0-md5:	5d1dcfffd8ee0f4b717ac75d6d8b0525
 %else
-Source0:       ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-#Source0:	%{name}-%{_snap}.tar.bz2
-#%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
+Source0:	kdesource.tar.gz
 %endif
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
@@ -148,11 +146,12 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%if %{with cvs}
-%setup -q -n %{name} -D
-%else
+%if ! %{with cvs}
 %setup -q -n %{name}-%{_snap}
+%else
+%setup -q -n %{name} -D
 %endif
+
 %build
 
 cp /usr/share/automake/config.sub admin
