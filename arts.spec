@@ -16,13 +16,14 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	ed23773940e2b97e31a6850e2334bfe5
+Patch0:		kde-general-am18.patch
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -144,6 +145,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q -n %{name}-%{_snap}
+%patch0 -p1
 
 %build
 %{__make} -f admin/Makefile.common cvs
