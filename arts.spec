@@ -12,7 +12,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Group:		Libraries
@@ -61,10 +61,10 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	qt-devel >= 3.1
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-X11 = %{version}-%{release}
-Requires:	%{name}-glib = %{version}-%{release}
-Requires:	%{name}-qt = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-X11 = %{epoch}:%{version}-%{release}
+Requires:	%{name}-glib = %{epoch}:%{version}-%{release}
+Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
 
 %description devel
 Header files required to compile programs using arts.
@@ -103,7 +103,7 @@ Czê¶æ aRts wymagaj±ca GLib.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{version}
+Requires:	%{name} >= %{epoch}:%{version}
 Requires:	qt >= 3.1
 
 %description qt
