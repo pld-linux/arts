@@ -22,8 +22,7 @@ Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 %if %{with cvs}
-# Just touch ~/rpm/kdesource
-Source0:	kdesource
+Source0:	kdesource.tar.gz
 %else
 Source0:	%{name}-%{_snap}.tar.bz2
 #%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
@@ -148,7 +147,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %if %{with cvs}
-%setup -q -n %{name}
+%setup -q -n %{name} -D
 %else
 %setup -q -n %{name}-%{_snap}
 %endif
