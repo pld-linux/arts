@@ -6,7 +6,8 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.90
-%define		_snap		040407
+%define		_snap		040424
+%define		_packager	adgor
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -18,9 +19,8 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	aa52541c682b046b9988b6677652fcf7
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	aa52541c682b046b9988b6677652fcf7
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -140,7 +140,7 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
 
 %build
 cp /usr/share/automake/config.sub admin
