@@ -6,7 +6,7 @@
 #
 
 %define		_state		stable
-%define		_kdever		3.3
+%define		_kdever		3.3.1
 %define		_ver		1.3.1
 
 Summary:	aRts sound server
@@ -14,14 +14,13 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-#Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ftp.man.szczecin.pl/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	26554e4c47d9a52bc20a07e39d32a731
+# Source0-size:	967242
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
