@@ -4,15 +4,15 @@
 #
 
 %define		_state		snapshots
-%define		_ver		1.2
-%define		_snap		030613
+%define		_ver		1.2.0
+%define		_snap		030617
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.2
-Release:	0.%{_snap}.1
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		12
 License:	LGPL
 Group:		Libraries
