@@ -1,43 +1,32 @@
-#
-# _with_nas		- enable NAS audio support
-# _without_alsa		- disable ALSA support
-#
-
-%define		_state		stable
-%define		_ver		3.1.1
-
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.1.1
-Release:	1
-Epoch:		12
+%define	_kdever	3.0.5a
+Version:	1.0.5a
+Release:	0.1
+Epoch:		11
 License:	LGPL
-Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-nonas.patch
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
+BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	audiofile-devel
-BuildRequires:	glib2-devel >= 2.1.0-3
+BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
-%{?_with_nas:BuildRequires:	nas-devel}
+BuildRequires:	nas-devel
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.1
+BuildRequires:	qt-devel >= 3.0.5
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define         _prefix         /usr/X11R6
+%define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
-
-%define		no_install_post_chrpath		1
 
 %description
 aRts sound server.
@@ -70,8 +59,8 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name} = %{version}
+Requires:	qt >= 3.0.5
 
 %description qt
 QT dependend part of aRts.
@@ -84,8 +73,8 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 3.1
-Requires:	%{name} >= %{version}
+Requires:	qt-devel >= 3.0.5
+Requires:	%{name} = %{version}
 
 %description devel
 Header files required to compile programs using arts.
@@ -101,7 +90,6 @@ Arquivos para desenvolvimento com o o aRts.
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
 Group:		X11/Libraries
-Requires:	glib >= 1.2.6
 
 %description glib
 GLib dependend part of aRts.
@@ -111,19 +99,21 @@ Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
 %setup -q
-%{!?_with_nas:%patch0 -p1}
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-%{__make} -f admin/Makefile.common cvs
+#%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
-	--with-xinerama	\
-	--with%{?_without_alsa:out}-alsa
+%ifnarch sparc sparcv9 sparc64
+	--with-alsa \
+%endif
+	--disable-rpath \
+	--with-xinerama
 
 %{__make}
 
@@ -135,13 +125,13 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post X11   -p /sbin/ldconfig
+%post   X11 -p /sbin/ldconfig
 %postun X11 -p /sbin/ldconfig
 
-%post qt   -p /sbin/ldconfig
+%post   qt -p /sbin/ldconfig
 %postun qt -p /sbin/ldconfig
 
-%post glib   -p /sbin/ldconfig
+%post   glib -p /sbin/ldconfig
 %postun glib -p /sbin/ldconfig
 
 %clean
@@ -156,30 +146,34 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
-%attr(755,root,root) %{_bindir}/testdhandle
-%{_libdir}/lib[!gqx]*.la
-%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
+%attr(755,root,root) %{_libdir}/lib[am]*.so.*.*
+%attr(755,root,root) %{_libdir}/libs[!h]*.so.*.*
+%{_libdir}/lib[ams]*.la
+%attr(755,root,root) %{_libdir}/libkmedia*.so.*.*
+%{_libdir}/libkmedia*.la
 %{_libdir}/mcop
+
+%files X11
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%{_libdir}/libx11globalcomm.la
+
+%files qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
+%{_libdir}/libqtmcop.la
+
+%files glib
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
+%{_libdir}/libgmcop.la
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/*.so
+%{_libdir}/lib[mqsxg]*.so
+%{_libdir}/libarts[!k]*.so
+%{_libdir}/libkmedia*.so
 %{_includedir}/arts
 %{_includedir}/artsc
-
-%files X11
-%defattr(644,root,root,755)
-%{_libdir}/libx11globalcomm.la
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*
-
-%files glib
-%defattr(644,root,root,755)
-%{_libdir}/libgmcop.la
-%attr(755,root,root) %{_libdir}/libgmcop.so.*
-
-%files qt
-%defattr(644,root,root,755)
-%{_libdir}/libqtmcop.la
-%attr(755,root,root) %{_libdir}/libqtmcop.so.*
