@@ -9,14 +9,14 @@ Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.1.2
-Release:	2
+Version:	1.1.3
+Release:	1
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.2/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	5d5a1858f8dcf0d88600291899dff75b
+# Source0-md5:	f04eb6ef387d63741561ab6623696322
 URL:		http://www.kde.org/
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
