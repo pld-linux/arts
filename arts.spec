@@ -1,11 +1,8 @@
 #
-
-%bcond_without alsa	# disables ALSA support
-%bcond_with    nas	# disables NAS support 
-
-%ifarch	sparc sparcv9 sparc64
-%undefine with_alsa
-%endif
+# Conditional build:
+%bcond_without	alsa	# disable ALSA support
+%bcond_with	nas	# enable NAS support
+#
 
 %define		_state		snapshots
 %define		_ver		1.2.0
@@ -16,13 +13,14 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	3
+Release:	4
 Epoch:		12
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	61524d1f10d074975a69a71a3ca57320
+URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -31,12 +29,11 @@ BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libpng-devel
-BuildRequires:  libtool >= 2:1.5-2
+BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
-URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,11 +57,12 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 6:3.2.1-4
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+# uhm, not really (libartsc doesn't need any of these)
 Requires:	%{name}-X11 = %{epoch}:%{version}-%{release}
 Requires:	%{name}-glib = %{epoch}:%{version}-%{release}
 Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
+Requires:	qt-devel >= 6:3.2.1-4
 
 %description devel
 Header files required to compile programs using arts.
@@ -91,9 +89,9 @@ Czê¶æ aRts wymagaj±ca X11.
 %package glib
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
-Group:		X11/Libraries
+Group:		Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	glib >= 1.2.6
+Requires:	glib2 >= 2.0.0
 
 %description glib
 GLib dependend part of aRts.
@@ -125,7 +123,7 @@ Czê¶æ aRts wymagaj±ca QT.
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
 	--enable-final \
-	--with%{?without_alsa:out}-alsa
+	--with%{!?with_alsa:out}-alsa
 
 %if %{without nas}
 echo "#undef HAVE_LIBAUDIONAS" >> config.h
@@ -136,22 +134,23 @@ echo "#undef HAVE_LIBAUDIONAS" >> config.h
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   	-p /sbin/ldconfig
-%postun 	-p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
-%post	X11	-p /sbin/ldconfig
-%postun X11	-p /sbin/ldconfig
+%post	X11 -p /sbin/ldconfig
+%postun	X11 -p /sbin/ldconfig
 
-%post	glib	-p /sbin/ldconfig
-%postun	glib	-p /sbin/ldconfig
+%post	glib -p /sbin/ldconfig
+%postun	glib -p /sbin/ldconfig
 
-%post	qt	-p /sbin/ldconfig
-%postun	qt	-p /sbin/ldconfig
+%post	qt -p /sbin/ldconfig
+%postun	qt -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -171,17 +170,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
 %attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
-# ltdl modules
-%{_libdir}/libartscbackend.la
+# lt_dlopened modules (*.la needed)
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
-%{_libdir}/libartsdsp.la
+%{_libdir}/libartscbackend.la
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
-%{_libdir}/libartsdsp_st.la
+%{_libdir}/libartsdsp.la
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
-%{_libdir}/libartsgslplayobject.la
+%{_libdir}/libartsdsp_st.la
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
-%{_libdir}/libartswavplayobject.la
+%{_libdir}/libartsgslplayobject.la
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+%{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
 
@@ -189,23 +188,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/libartsc.so
-%{_libdir}/libartscbackend.so
-%{_libdir}/libartsdsp.so
-%{_libdir}/libartsdsp_st.so
-%{_libdir}/libartsflow.so
-%{_libdir}/libartsflow_idl.so
-%{_libdir}/libartsgslplayobject.so
-%{_libdir}/libartswavplayobject.so
-%{_libdir}/libkmedia2.so
-%{_libdir}/libkmedia2_idl.so
-%{_libdir}/libgmcop.so
-%{_libdir}/libmcop.so
-%{_libdir}/libmcop_mt.so
-%{_libdir}/libqtmcop.so
-%{_libdir}/libsoundserver_idl.so
-%{_libdir}/libx11globalcomm.so
-#
+%attr(755,root,root) %{_libdir}/libartsc.so
+%attr(755,root,root) %{_libdir}/libartscbackend.so
+%attr(755,root,root) %{_libdir}/libartsdsp.so
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so
+%attr(755,root,root) %{_libdir}/libartsflow.so
+%attr(755,root,root) %{_libdir}/libartsflow_idl.so
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so
+%attr(755,root,root) %{_libdir}/libkmedia2.so
+%attr(755,root,root) %{_libdir}/libkmedia2_idl.so
+%attr(755,root,root) %{_libdir}/libmcop.so
+%attr(755,root,root) %{_libdir}/libmcop_mt.so
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so
+# shared libraries
 %{_libdir}/libartsc.la
 %{_libdir}/libartsflow.la
 %{_libdir}/libartsflow_idl.la
@@ -214,7 +211,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libmcop.la
 %{_libdir}/libmcop_mt.la
 %{_libdir}/libsoundserver_idl.la
-#
+# devel for -glib and -qt
+%attr(755,root,root) %{_libdir}/libgmcop.so
+%attr(755,root,root) %{_libdir}/libqtmcop.so
 %{_libdir}/libgmcop.la
 %{_libdir}/libqtmcop.la
 #
@@ -223,9 +222,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files X11
 %defattr(644,root,root,755)
-# ltdl module
-%{_libdir}/libx11globalcomm.la
+# lt_dlopened module (.la needed)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%{_libdir}/libx11globalcomm.la
 
 %files glib
 %defattr(644,root,root,755)
