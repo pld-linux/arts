@@ -143,9 +143,9 @@ Pliki programistyczne dla biblioteki qtmcop.
 %setup -q -n %{name}
 
 %build
-cp %{_datadir}/automake/config.sub admin
+cp /usr/share/automake/config.sub admin
 
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
