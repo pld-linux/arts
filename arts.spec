@@ -8,7 +8,7 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.0
 Release:	1
-Epoch:		10
+Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
