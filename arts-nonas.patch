@@ -1,0 +1,23 @@
+--- arts-1.1.1/configure.in.in.orig	Sat Mar 22 15:20:21 2003
++++ arts-1.1.1/configure.in.in	Sat Mar 22 15:27:15 2003
+@@ -167,16 +167,17 @@
+   arts_libaudionas_include=no
+   AC_CHECK_HEADER(audio/audiolib.h,
+   [
+-    arts_libaudionas_include=yes
++    arts_libaudionas_include=no
+   ])
+   if test "x$arts_libaudionas_include" = "xyes"; then
+     AC_CHECK_LIB(audio,AuOpenServer,[
+      dnl LDFLAGS in case it's in KDEDIR/lib
+-     LIBAUDIONAS="$LDFLAGS -laudio -lXt"
+-     AC_DEFINE(HAVE_LIBAUDIONAS, 1,
++     LIBAUDIONAS=""
++     AC_DEFINE(HAVE_LIBAUDIONAS, 0,
+         [Define if you have libaudio (required if you want to have NAS support)])
+    ])
+   fi
++  
+   AC_SUBST(LIBAUDIONAS)
+   AC_LANG_RESTORE
+   CPPFLAGS="$ac_CPPFLAGS_save"
