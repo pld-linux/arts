@@ -6,19 +6,23 @@
 #
 
 %define		_state		unstable
-%define		_kdever		3.3.91
+%define		_kdever		3.3.92
+%define		_ver		1.3.92
+%define		_snap		%{nil}
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.3.91
+Version:	%{_ver}
+#Version:	%{_ver}.%{_snap}
 Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	90d7e26b365f41d81b11616e4fec1e0f
+# Source0-md5:	cc7dd53ca5499e370316179d5942d663
+#Source0:        http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -155,6 +159,7 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
+#%setup -q -n %{name}-%{_snap}
 %setup -q
 
 %build
