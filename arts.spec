@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
+%bcond_without  esd	# disable esound support
 %bcond_with	cvs	# use cvs sources instead of source0
 #
 
@@ -33,7 +34,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.13-3
-BuildRequires:	esound-devel
+%{?with_esd:BuildRequires:	esound-devel}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
