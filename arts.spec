@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2
-%define		_snap		030501
+%define		_snap		030507
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -130,6 +130,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
+%post   	-p /sbin/ldconfig
+%postun 	-p /sbin/ldconfig
+
+%post	X11	-p /sbin/ldconfig
+%postun X11	-p /sbin/ldconfig
+
+%post	glib	-p /sbin/ldconfig
+%postun	glib	-p /sbin/ldconfig
+
+%post	qt	-p /sbin/ldconfig
+%postun	qt	-p /sbin/ldconfig
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -142,8 +154,32 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
-%{_libdir}/lib[!gqx]*.la
-%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
+%{_libdir}/libartsc.la
+%attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
+%{_libdir}/libartscbackend.la
+%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+%{_libdir}/libartsdsp.la
+%attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
+%{_libdir}/libartsdsp_st.la
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
+%{_libdir}/libartsflow.la
+%attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
+%{_libdir}/libartsflow_idl.la
+%attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
+%{_libdir}/libartsgslplayobject.la
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
+%{_libdir}/libartswavplayobject.la
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+%{_libdir}/libkmedia2.la
+%attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
+%{_libdir}/libkmedia2_idl.la
+%attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
+%{_libdir}/libmcop.la
+%attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
+%{_libdir}/libmcop_mt.la
+%attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
+%{_libdir}/libsoundserver_idl.la
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
 %{_libdir}/mcop
 
 %files devel
@@ -157,14 +193,14 @@ rm -rf $RPM_BUILD_ROOT
 %files X11
 %defattr(644,root,root,755)
 %{_libdir}/libx11globalcomm.la
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 
 %files glib
 %defattr(644,root,root,755)
 %{_libdir}/libgmcop.la
-%attr(755,root,root) %{_libdir}/libgmcop.so.*
+%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
 
 %files qt
 %defattr(644,root,root,755)
 %{_libdir}/libqtmcop.la
-%attr(755,root,root) %{_libdir}/libqtmcop.so.*
+%attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
