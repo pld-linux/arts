@@ -5,7 +5,7 @@
 %bcond_without  esd	# disable esound support
 #
 
-%define		_state		unstable
+%define		_state		stable
 %define		_kdever		3.3
 %define		_ver		1.3.0
 
