@@ -114,6 +114,7 @@ Czê¶æ aRts wymagaj±ca GLib.
 %prep
 %setup -q -n %{name}-%{_ver}
 %patch0 -p1
+%patch1 -p1
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
