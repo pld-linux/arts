@@ -17,8 +17,8 @@ Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	f17708ad3c91b0a2f0c83674f78c3e53	
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
