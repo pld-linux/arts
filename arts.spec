@@ -1,11 +1,15 @@
 #
-# _with_nas		- enable NAS audio support
-# _without_alsa		- disable ALSA support
-#
+
+%bcond_without alsa	# disables ALSA support
+%bcond_with nas		# enables NAS support 
+
+%ifarch	sparc sparcv9 sparc64
+%undefine with_alsa
+%endif
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		031014
+%define		_snap		031024
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -19,9 +23,7 @@ Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	b817299b25cbc29b36534146c729b4c5
-%ifnarch sparc sparcv9 sparc64
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
-%endif
+%{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -31,7 +33,7 @@ BuildRequires:	libmad-devel
 BuildRequires:	libpng-devel
 BuildRequires:  libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
-%{?_with_nas:BuildRequires:	nas-devel}
+%{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
 URL:		http://www.kde.org/
@@ -118,19 +120,16 @@ Czê¶æ aRts wymagaj±ca QT.
 %setup -q -n %{name}-%{_snap}
 
 %build
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
-	--with%{?_without_alsa:out}-alsa
+	--with%{?without_alsa:out}-alsa
 
-%if %{!?_with_nas:1}0
-# Cannot patch configure.in because it does not rebuild correctly on ac25
-sed -e 's@#define HAVE_LIBAUDIONAS 1@/* #undef HAVE_LIBAUDIONAS */@' \
-	< config.h \
-	> config.h.tmp
-mv -f config.h{.tmp,}
+%if %{without nas}
+echo "#undef HAVE_LIBAUDIONAS" >> config.h
 %endif
 
 %{__make}
