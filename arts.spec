@@ -148,25 +148,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artswrapper
 %attr(755,root,root) %{_libdir}/lib[am]*.so.*.*
 %attr(755,root,root) %{_libdir}/libs[!h]*.so.*.*
-%attr(755,root,root) %{_libdir}/lib[ams]*.la
+%{_libdir}/lib[ams]*.la
 %attr(755,root,root) %{_libdir}/libkmedia*.so.*.*
-%attr(755,root,root) %{_libdir}/libkmedia*.la
+%{_libdir}/libkmedia*.la
 %{_libdir}/mcop
 
 %files X11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%attr(755,root,root) %{_libdir}/libx11globalcomm.la
+%{_libdir}/libx11globalcomm.la
 
 %files qt
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
-%attr(755,root,root) %{_libdir}/libqtmcop.la
+%{_libdir}/libqtmcop.la
 
 %files glib
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-%attr(755,root,root) %{_libdir}/libgmcop.la
+%{_libdir}/libgmcop.la
 
 %files devel
 %defattr(644,root,root,755)
