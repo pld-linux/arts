@@ -1,5 +1,5 @@
-%define		_kde_ver	3.0.1
-%define		_ver		1.0.1
+%define		_kde_ver	3.0.2
+%define		_ver		1.0.2
 # Set this to rc3 and such.
 # define		_sub_ver
 %define		_rel		1
@@ -23,11 +23,12 @@ License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{_kde_ver}/src/%{name}-%{version}.tar.bz2
+Patch0:		%{name}-fmt.patch
 BuildRequires:	alsa-lib-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel >= 1.2.2-2
+BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
@@ -109,6 +110,7 @@ Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -116,7 +118,12 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 #%{__make} -f Makefile.cvs
 
-CFLAGS="%{rpmcflags} `pkg-config libpng12 --cflags`"; export CFLAGS
+CFLAGS="%{rpmcflags}"; export CFLAGS
+
+RES="0"
+rpmvercmp `rpm -q libpng --qf "%{version}\n" ` 1.2.0 || RES="$?"
+[ "$RES" -lt 2 ] && CFLAGS="$CFLAGS `pkg-config libpng12 --cflags`"
+
 CXXFLAGS="%{rpmcflags}"; export CXXFLAGS
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
