@@ -10,13 +10,14 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.2
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.2/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	5d5a1858f8dcf0d88600291899dff75b
+URL:		http://www.kde.org/
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
@@ -29,7 +30,6 @@ BuildRequires:	libstdc++-devel
 %{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
-URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
@@ -131,7 +131,8 @@ mv -f config.h{.tmp,}
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
@@ -158,8 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
 %attr(755,root,root) %{_bindir}/testdhandle
-%{_libdir}/lib[!gqx]*.la
 %attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*.*.*
+%{_libdir}/lib[!gqx]*.la
 %{_libdir}/mcop
 
 %files devel
@@ -172,15 +173,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files X11
 %defattr(644,root,root,755)
-%{_libdir}/libx11globalcomm.la
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%{_libdir}/libx11globalcomm.la
 
 %files glib
 %defattr(644,root,root,755)
-%{_libdir}/libgmcop.la
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
+%{_libdir}/libgmcop.la
 
 %files qt
 %defattr(644,root,root,755)
-%{_libdir}/libqtmcop.la
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
+%{_libdir}/libqtmcop.la
