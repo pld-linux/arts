@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
-%bcond_without  esd	# disable esound support
+%bcond_without	esd	# disable esound support
 #
 
 %define		_state		stable
