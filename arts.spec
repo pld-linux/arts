@@ -7,18 +7,17 @@
 
 %define		_state		stable
 %define		_kdever		3.3.1
-%define		_ver		1.3.1
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}
+Version:	1.3.1
 Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	26554e4c47d9a52bc20a07e39d32a731
 # Source0-size:	967242
 URL:		http://www.arts-project.org/
@@ -168,9 +167,9 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
-	%if "%{_lib}" == "lib64"
+%if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
-	%endif
+%endif
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
 	%{!?debug:--disable-rpath} \
 	--enable-final \
