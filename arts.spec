@@ -1,7 +1,5 @@
 #
 # TODO: consider:
-# - merging -glib into main (main depends on glib2 too)
-# - separating -qt-devel
 # - separating artsc and its -devel? (but what are artsc deps?)
 #
 # Conditional build:
@@ -38,6 +36,7 @@ BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
+Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,12 +61,6 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-# uhm, not really (libartsc doesn't need any of these)
-Requires:	%{name}-X11 = %{epoch}:%{version}-%{release}
-Requires:	%{name}-glib = %{epoch}:%{version}-%{release}
-# only for libqtmcop
-Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
-Requires:	qt-devel >= 6:3.2.1-4
 # not necessary for all libs (artsc in particular), but propagated by artsflow
 %{?with_alsa:Requires:	alsa-lib-devel}
 Requires:	audiofile-devel
@@ -94,23 +87,10 @@ Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description X11
-X11 dependent part of aRts.
+X11 dependent part of aRts (x11globalcomm module).
 
 %description X11 -l pl
-Czê¶æ aRts wymagaj±ca X11.
-
-%package glib
-Summary:	GLib dependend part of aRts
-Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
-Group:		Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	glib2 >= 2.0.0
-
-%description glib
-GLib dependend part of aRts.
-
-%description glib -l pl
-Czê¶æ aRts wymagaj±ca GLib.
+Czê¶æ aRts wymagaj±ca X11 (modu³ x11globalcomm).
 
 %package qt
 Summary:	QT dependend part of aRts
@@ -120,10 +100,24 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	qt >= 6:3.2.1-4
 
 %description qt
-QT dependend part of aRts.
+QT dependend part of aRts (qtmcop library).
 
 %description qt -l pl
-Czê¶æ aRts wymagaj±ca QT.
+Czê¶æ aRts wymagaj±ca QT (biblioteka qtmcop).
+
+%package qt-devel
+Summary:	Development files for qtmcop library
+Summary(pl):	Pliki programistyczne dla biblioteki qtmcop
+Group:		X11/Development/Libraries
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
+Requires:	qt-devel >= 6:3.2.1-4
+
+%description qt-devel
+Development files for qtmcop library.
+
+%description qt-devel -l pl
+Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q -n %{name}-%{_snap}
@@ -155,9 +149,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	X11 -p /sbin/ldconfig
 %postun	X11 -p /sbin/ldconfig
 
-%post	glib -p /sbin/ldconfig
-%postun	glib -p /sbin/ldconfig
-
 %post	qt -p /sbin/ldconfig
 %postun	qt -p /sbin/ldconfig
 
@@ -174,6 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
+%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
 %attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
@@ -205,28 +197,27 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so
+%attr(755,root,root) %{_libdir}/libgmcop.so
 %attr(755,root,root) %{_libdir}/libkmedia2.so
 %attr(755,root,root) %{_libdir}/libkmedia2_idl.so
 %attr(755,root,root) %{_libdir}/libmcop.so
 %attr(755,root,root) %{_libdir}/libmcop_mt.so
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so
+# it seems to be only (lt_)dlopened, nothing links with it - so not needed
+# %attr(755,root,root) %{_libdir}/libx11globalcomm.so
 # shared libraries
 %{_libdir}/libartsc.la
 %{_libdir}/libartsflow.la
 %{_libdir}/libartsflow_idl.la
+%{_libdir}/libgmcop.la
 %{_libdir}/libkmedia2.la
 %{_libdir}/libkmedia2_idl.la
 %{_libdir}/libmcop.la
 %{_libdir}/libmcop_mt.la
 %{_libdir}/libsoundserver_idl.la
-# devel for -glib and -qt
-%attr(755,root,root) %{_libdir}/libgmcop.so
-%attr(755,root,root) %{_libdir}/libqtmcop.so
-%{_libdir}/libgmcop.la
-%{_libdir}/libqtmcop.la
 #
 %{_includedir}/arts
+%exclude %{_includedir}/arts/qiomanager.h
 %{_includedir}/artsc
 
 %files X11
@@ -235,12 +226,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 %{_libdir}/libx11globalcomm.la
 
-%files glib
-%defattr(644,root,root,755)
-# shared library
-%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-
 %files qt
 %defattr(644,root,root,755)
 # shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
+
+%files qt-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libqtmcop.so
+%{_libdir}/libqtmcop.la
+%{_includedir}/arts/qiomanager.h
