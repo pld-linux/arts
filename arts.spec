@@ -4,8 +4,8 @@
 %bcond_with	nas	# enable NAS support
 #
 
-%define		_state		unstable
-%define		_ver		1.1.95
+%define		_state		stable
+%define		_ver		1.2.0
 #%%define		_snap		040110
 
 Summary:	aRts sound server
@@ -17,9 +17,9 @@ Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	76feb4e5d5559e3a97659cbc833dab3a
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	0527208a329dde5debbb9a9c5b2feee8	
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
