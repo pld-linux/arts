@@ -5,7 +5,7 @@ Name:		arts
 %define	_kdever	3.0.3
 Version:	1.0.3
 Release:	2
-Epoch:		10
+Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
