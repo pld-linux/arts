@@ -9,7 +9,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		031204
+%define		_snap		040104
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -22,8 +22,8 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	ed23773940e2b97e31a6850e2334bfe5
-Patch0:		kde-general-am18.patch
+# Source0-md5:	36606412608b4c1683d0f583dfd8e3c6
+Patch0:		kde-common-am18.patch
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -144,7 +144,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-%patch0 -p1
+%patch0 -p0
 
 %build
 cp /usr/share/automake/config.sub admin
