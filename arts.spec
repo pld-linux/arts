@@ -168,8 +168,11 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
-	--%{?debug:en}%{!?debug:dis}able-debug \
-	--disable-rpath \
+	%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+	%endif
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
+	%{!?debug:--disable-rpath} \
 	--enable-final \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
