@@ -1,4 +1,9 @@
 #
+# TODO: consider:
+# - merging -glib into main (main depends on glib2 too)
+# - separating -qt-devel
+# - separating artsc and its -devel? (but what are artsc deps?)
+#
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
@@ -13,7 +18,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Group:		Libraries
@@ -25,10 +30,9 @@ URL:		http://www.kde.org/
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	esound-devel
 BuildRequires:	glib2-devel >= 2.0.0
-BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
-BuildRequires:	libpng-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
@@ -61,8 +65,17 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 # uhm, not really (libartsc doesn't need any of these)
 Requires:	%{name}-X11 = %{epoch}:%{version}-%{release}
 Requires:	%{name}-glib = %{epoch}:%{version}-%{release}
+# only for libqtmcop
 Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
 Requires:	qt-devel >= 6:3.2.1-4
+# not necessary for all libs (artsc in particular), but propagated by artsflow
+%{?with_alsa:Requires:	alsa-lib-devel}
+Requires:	audiofile-devel
+Requires:	esound-devel
+Requires:	glib2-devel >= 2.0.0
+Requires:	libmad-devel
+Requires:	libvorbis-devel
+%{?with_nas:Requires:	nas-devel}
 
 %description devel
 Header files required to compile programs using arts.
@@ -116,18 +129,14 @@ Czê¶æ aRts wymagaj±ca QT.
 %setup -q -n %{name}-%{_snap}
 
 %build
-
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
+	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
 	--enable-final \
 	--with%{!?with_alsa:out}-alsa
-
-%if %{without nas}
-echo "#undef HAVE_LIBAUDIONAS" >> config.h
-%endif
 
 %{__make}
 
