@@ -154,7 +154,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artswrapper
 %attr(755,root,root) %{_bindir}/testdhandle
 %{_libdir}/lib[!gqx]*.la
-%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
+%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*.*.*
 %{_libdir}/mcop
 
 %files devel
@@ -168,14 +168,14 @@ rm -rf $RPM_BUILD_ROOT
 %files X11
 %defattr(644,root,root,755)
 %{_libdir}/libx11globalcomm.la
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 
 %files glib
 %defattr(644,root,root,755)
 %{_libdir}/libgmcop.la
-%attr(755,root,root) %{_libdir}/libgmcop.so.*
+%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
 
 %files qt
 %defattr(644,root,root,755)
 %{_libdir}/libqtmcop.la
-%attr(755,root,root) %{_libdir}/libqtmcop.so.*
+%attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
