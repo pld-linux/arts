@@ -6,7 +6,7 @@
 #
 
 %define		_state		stable
-%define		_kdever		3.4.0
+%define		_kdever		3.4
 %define		_ver		1.4.0
 
 Summary:	aRts sound server
