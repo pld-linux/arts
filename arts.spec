@@ -4,23 +4,23 @@
 %bcond_with	nas	# enable NAS support
 #
 %define		_state		stable
-%define		_ver		1.2.2
+%define		_ver		1.2.3
 #%%define		_snap		040110
-%define		_kdever		3.2.2
+%define		_kdever		3.2.3
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	2
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	83ca7e7a33c55de34e12bfc360190795
+#Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:        http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	fca8a9ec7538c4fe8e4c79767bb2a7e8
 # http://download.kde.org/stable/3.2.1/src/arts-1.2.1.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
