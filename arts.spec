@@ -1,4 +1,7 @@
-# _without_alsa - disable alsa
+#
+# _with_nas		- enable NAS audio support
+# _without_alsa		- disable ALSA support
+#
 
 %define		_state		stable
 %define		_kdever		3.1
@@ -24,7 +27,7 @@ BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
-BuildRequires:	nas-devel
+%{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
