@@ -5,8 +5,8 @@
 #
 
 %define		_state		snapshots
-%define		_ver		1.2.0
-%define		_snap		040209
+%define		_ver		1.2.90
+%define		_snap		040401
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -18,8 +18,8 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	f17708ad3c91b0a2f0c83674f78c3e53	
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	ff498b5cc743213ab8a1d0d5dc65b418
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -167,7 +167,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cd debian
+cd debian/man
 for f in *.sgml ; do
 	base="$(basename $f .sgml)"
 	upper="$(echo ${base} | tr a-z A-Z)"
