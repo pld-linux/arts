@@ -56,7 +56,7 @@ hardware.
 Analog Real-Time Synthesizer (w skrócie aRts) to modularny system do
 obs³ugi d¼wiêku i muzyki na komputerze. Za pomoc± modu³ów u¿ytkownik
 mo¿e z powodzeniem budowaæ kompleksowe narzêdzia przetwarzania
-d¼wiêku. Modu³y umo¿liwiaj± generacjê kstza³tu fali, filtrowanie,
+d¼wiêku. Modu³y umo¿liwiaj± generacjê kszta³tu fali, filtrowanie,
 efekty audio, miksowanie oraz odtwarzanie d¼wiêku cyfrowego w ró¿nych
 formatach. Serwer d¼wiêku artsd umo¿liwia równie¿ jednoczesne
 odtwarzanie d¼wiêku z wielu ¼róde³.
