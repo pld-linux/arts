@@ -1,7 +1,7 @@
 %define		_kde_ver	3.0
 %define		_ver		1.0.0
 # Set this to rc3 and such.
-%define		_sub_ver
+# define		_sub_ver
 %define		_rel		1
 
 # Set up version, release and FTP directory.
@@ -121,7 +121,7 @@ Arquivos para desenvolvimento com o o aRts.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-%{__make} -f Makefile.cvs
+#%{__make} -f Makefile.cvs
 
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
