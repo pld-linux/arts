@@ -2,11 +2,12 @@
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
+%bcond_with	cvs	# use cvs sources instead of source0
 #
 
 %define		_state		snapshots
 %define		_ver		1.2.90
-%define		_snap		040513
+%define		_snap		040522
 %define		_packager	adgor
 
 Summary:	aRts sound server
@@ -19,9 +20,14 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-#Source0:	%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
+#Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+%if %{with cvs}
+# Just touch ~/rpm/kdesource
+Source0:	kdesource
+%else
+Source0:	%{name}-%{_snap}.tar.bz2
+#%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
+%endif
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -141,9 +147,13 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
+%if %{with cvs}
+%setup -q -n %{name}
+%else
 %setup -q -n %{name}-%{_snap}
-
+%endif
 %build
+
 cp /usr/share/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
