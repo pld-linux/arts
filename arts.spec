@@ -1,16 +1,21 @@
+# _without_alsa - disable alsa
+
+%define		_state		stable
+%define		_kdever		3.1
+
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-%define	_kdever	3.0.5a
-Version:	1.0.5a
-Release:	0.1
-Epoch:		11
+Version:	1.1
+Release:	5
+Epoch:		12
 License:	LGPL
+Vendor:		The KDE Team
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{_kdever}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 %ifnarch sparc sparcv9 sparc64
-BuildRequires:	alsa-lib-devel
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 BuildRequires:	audiofile-devel
 BuildRequires:	glib2-devel >= 2.0.0
@@ -20,11 +25,13 @@ BuildRequires:	libpng-devel
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.0.5
+BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
+
+%define		no_install_post_chrpath		1
 
 %description
 aRts sound server.
@@ -57,8 +64,8 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} = %{version}
-Requires:	qt >= 3.0.5
+Requires:	%{name} >= %{version}
+Requires:	qt >= 3.1
 
 %description qt
 QT dependend part of aRts.
@@ -71,8 +78,8 @@ Summary:	Sound server - header files
 Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
-Requires:	qt-devel >= 3.0.5
-Requires:	%{name} = %{version}
+Requires:	qt-devel >= 3.1
+Requires:	%{name} >= %{version}
 
 %description devel
 Header files required to compile programs using arts.
@@ -88,6 +95,7 @@ Arquivos para desenvolvimento com o o aRts.
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
 Group:		X11/Libraries
+Requires:	glib >= 1.2.6
 
 %description glib
 GLib dependend part of aRts.
@@ -102,16 +110,12 @@ Czê¶æ aRts wymagaj±ca GLib.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-#%{__make} -f Makefile.cvs
-
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
-%ifnarch sparc sparcv9 sparc64
-	--with-alsa \
-%endif
-	--disable-rpath \
-	--with-xinerama
+	--with-xinerama	\
+	--with%{?_without_alsa:out}-alsa
+
 
 %{__make}
 
@@ -123,13 +127,13 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%post   X11 -p /sbin/ldconfig
+%post X11   -p /sbin/ldconfig
 %postun X11 -p /sbin/ldconfig
 
-%post   qt -p /sbin/ldconfig
+%post qt   -p /sbin/ldconfig
 %postun qt -p /sbin/ldconfig
 
-%post   glib -p /sbin/ldconfig
+%post glib   -p /sbin/ldconfig
 %postun glib -p /sbin/ldconfig
 
 %clean
@@ -144,34 +148,30 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
-%attr(755,root,root) %{_libdir}/lib[am]*.so.*.*
-%attr(755,root,root) %{_libdir}/libs[!h]*.so.*.*
-%{_libdir}/lib[ams]*.la
-%attr(755,root,root) %{_libdir}/libkmedia*.so.*.*
-%{_libdir}/libkmedia*.la
+%attr(755,root,root) %{_bindir}/testdhandle
+%{_libdir}/lib[!gqx]*.la
+%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*
 %{_libdir}/mcop
-
-%files X11
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%{_libdir}/libx11globalcomm.la
-
-%files qt
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
-%{_libdir}/libqtmcop.la
-
-%files glib
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-%{_libdir}/libgmcop.la
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/lib[mqsxg]*.so
-%{_libdir}/libarts[!k]*.so
-%{_libdir}/libkmedia*.so
+%{_libdir}/*.so
 %{_includedir}/arts
 %{_includedir}/artsc
+
+%files X11
+%defattr(644,root,root,755)
+%{_libdir}/libx11globalcomm.la
+%attr(755,root,root) %{_libdir}/libx11globalcomm.so.*
+
+%files glib
+%defattr(644,root,root,755)
+%{_libdir}/libgmcop.la
+%attr(755,root,root) %{_libdir}/libgmcop.so.*
+
+%files qt
+%defattr(644,root,root,755)
+%{_libdir}/libqtmcop.la
+%attr(755,root,root) %{_libdir}/libqtmcop.so.*
