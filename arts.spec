@@ -1,15 +1,15 @@
 # _without_alsa - disable alsa
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc4
+%define		_kdever		kde-3.1-rc5
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.1.0
-Release:	5
-Epoch:		11
+Version:	1.1
+Release:	1
+Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
