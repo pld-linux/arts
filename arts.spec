@@ -12,7 +12,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		12
 License:	LGPL
 Group:		Libraries
@@ -25,9 +25,12 @@ Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 BuildRequires:	audiofile-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:  libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
@@ -117,6 +120,12 @@ Czê¶æ aRts wymagaj±ca QT.
 #%patch1 -p1
 
 %build
+#%%{__libtoolize}                                                                 
+#%%{__aclocal}                                                                    
+#%%{__autoconf}                                                                   
+#%%{__autoheader}                                                                 
+#%%{__automake}                                                                   
+#%%{__perl} admin/am_edit
 
 #%%{__make} -f Makefile.cvs
 
@@ -164,32 +173,27 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsrec
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
-%{_libdir}/libartsc.la
+# shared libraries
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
+%attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
+%attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
+# ltdl modules
 %{_libdir}/libartscbackend.la
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
 %{_libdir}/libartsdsp.la
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
 %{_libdir}/libartsdsp_st.la
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
-%{_libdir}/libartsflow.la
-%attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
-%{_libdir}/libartsflow_idl.la
-%attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
 %{_libdir}/libartsgslplayobject.la
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
 %{_libdir}/libartswavplayobject.la
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
-%{_libdir}/libkmedia2.la
-%attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
-%{_libdir}/libkmedia2_idl.la
-%attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
-%{_libdir}/libmcop.la
-%attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
-%{_libdir}/libmcop_mt.la
-%attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
-%{_libdir}/libsoundserver_idl.la
-%attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
+#
 %{_libdir}/mcop
 
 %files devel
@@ -212,20 +216,34 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libqtmcop.so
 %{_libdir}/libsoundserver_idl.so
 %{_libdir}/libx11globalcomm.so
+#
+%{_libdir}/libartsc.la
+%{_libdir}/libartsflow.la
+%{_libdir}/libartsflow_idl.la
+%{_libdir}/libkmedia2.la
+%{_libdir}/libkmedia2_idl.la
+%{_libdir}/libmcop.la
+%{_libdir}/libmcop_mt.la
+%{_libdir}/libsoundserver_idl.la
+#
+%{_libdir}/libgmcop.la
+%{_libdir}/libqtmcop.la
+#
 %{_includedir}/arts
 %{_includedir}/artsc
 
 %files X11
 %defattr(644,root,root,755)
+# ltdl module
 %{_libdir}/libx11globalcomm.la
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 
 %files glib
 %defattr(644,root,root,755)
-%{_libdir}/libgmcop.la
+# shared library
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
 
 %files qt
 %defattr(644,root,root,755)
-%{_libdir}/libqtmcop.la
+# shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
