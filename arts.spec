@@ -24,7 +24,7 @@ BuildRequires:	libpng-devel
 #BuildRequires:	libvorbis-devel
 #BuildRequires:	mad-devel
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 3.0.5
+BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
