@@ -4,7 +4,7 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 %define	_kdever	3.0.4
 Version:	1.0.4
-Release:	2
+Release:	3
 Epoch:		11
 License:	LGPL
 Vendor:		The KDE Team
@@ -109,8 +109,11 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
-	--with-xinerama	\
-	--with-alsa 
+%ifnarch sparc sparcv9 sparc64
+	--with-alsa
+%endif
+	--disable-rpath \
+	--with-xinerama
 
 %{__make}
 
