@@ -39,7 +39,7 @@ BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
-BuildRequires:	unsermake >= 040805-1
+#BuildRequires:	unsermake >= 040805-1
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -165,7 +165,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %build
 cp -f /usr/share/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+#export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
