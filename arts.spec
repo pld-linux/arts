@@ -6,19 +6,20 @@
 #
 
 %define		_state		stable
-%define		_kdever		3.3.2
+%define		_kdever		3.4.0
+%define		_ver		1.4.0
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.3.2
-Release:	1
+Version:	%{_ver}
+Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a3d22f7cc5c641204a28d3f77e441a84
+# Source0-md5:	a155bb00f56c71bc475890249e2dcaa9
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -35,7 +36,7 @@ BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 6:3.2.1-4
-BuildRequires:	unsermake >= 040805-1
+#BuildRequires:	unsermake >= 040805-1
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -160,7 +161,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %build
 cp -f /usr/share/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+#export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
