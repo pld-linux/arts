@@ -21,7 +21,6 @@ Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	75e535f72399d40abff1d0ba450e3d62
 #Patch0:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 #Patch1:	http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
-Patch0:		%{name}-modules.patch
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
@@ -114,7 +113,6 @@ Czê¶æ aRts wymagaj±ca QT.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-%patch0 -p1
 #%patch1 -p1
 
 %build
