@@ -16,7 +16,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	3
 Epoch:		12
 License:	LGPL
 Group:		Libraries
