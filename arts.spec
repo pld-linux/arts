@@ -5,21 +5,24 @@
 #
 
 %define		_state		stable
-%define		_ver		1.2.0
+%define		_ver		1.2.1
 #%%define		_snap		040110
+
+%define		_kdever		3.2.1
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	2
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	84877632917893438c629803e7b004f3
+# http://download.kde.org/stable/3.2.1/src/arts-1.2.1.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	f17708ad3c91b0a2f0c83674f78c3e53	
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -165,7 +168,7 @@ rm -rf $RPM_BUILD_ROOT
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 cd debian
-for f in *.sgml ; do
+for f in man/*.sgml ; do
 	base="$(basename $f .sgml)"
 	upper="$(echo ${base} | tr a-z A-Z)"
 	db2man $f
