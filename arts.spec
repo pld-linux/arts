@@ -6,7 +6,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.90
-%define		_snap		040506
+%define		_snap		040513
 %define		_packager	adgor
 
 Summary:	aRts sound server
@@ -19,9 +19,9 @@ Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	76a0bae9b646e3d881d972bd23aa37ea
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
