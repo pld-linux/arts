@@ -5,7 +5,7 @@
 
 %define		_state		snapshots
 %define		_ver		1.2.0
-%define		_snap		031006
+%define		_snap		031014
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
@@ -18,7 +18,7 @@ License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4a719a5d0d5dbedad8699b5db9043baf
+# Source0-md5:	b817299b25cbc29b36534146c729b4c5
 %ifnarch sparc sparcv9 sparc64
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
