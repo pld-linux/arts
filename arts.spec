@@ -4,7 +4,7 @@ Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 %define	_kdever	3.0.3
 Version:	1.0.3
-Release:	0.5
+Release:	1
 Epoch:		10
 License:	LGPL
 Vendor:		The KDE Team
