@@ -6,15 +6,15 @@
 
 %define		_state		unstable
 %define		_ver		1.1.95
-%define		_snap		040110
+#%%define		_snap		040110
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.1.95
+Version:	%{_ver}
 Release:	0.1
-Epoch:		13
+Epoch:		12
 License:	LGPL
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
@@ -139,7 +139,8 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q
+# qboosh leave it this way, 'cause its easier to change to snap later
+%setup -q -n %{name}-%{version}
 
 %build
 cp /usr/share/automake/config.sub admin
