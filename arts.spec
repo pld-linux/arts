@@ -10,7 +10,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.1.3
-Release:	1
+Release:	1.1
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
@@ -20,13 +20,16 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/3.1.3/src/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool >= 2:1.5-2
 # not needed, only ./configure check for this
+#BuildRequires:	libmad-devel
 #BuildRequires:	libvorbis-devel
-#BuildRequires:	mad-devel
 %{?_with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	qt-devel >= 3.1
@@ -54,6 +57,7 @@ outros.
 Summary:	X11 dependent part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca X11
 Group:		X11/Libraries
+Requires:	%{name} = %{epoch}:%{version}
 
 %description X11
 X11 dependent part of aRts.
@@ -65,7 +69,7 @@ Czê¶æ aRts wymagaj±ca X11.
 Summary:	QT dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca QT
 Group:		X11/Libraries
-Requires:	%{name} >= %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}
 Requires:	qt >= 3.1
 
 %description qt
@@ -80,7 +84,7 @@ Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
 Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	qt-devel >= 3.1
-Requires:	%{name} >= %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}
 %{?_with_nas:Requires:	nas-devel}
 
 %description devel
@@ -96,7 +100,8 @@ Arquivos para desenvolvimento com o o aRts.
 %package glib
 Summary:	GLib dependend part of aRts
 Summary(pl):	Czê¶æ aRts wymagaj±ca GLib
-Group:		X11/Libraries
+Group:		Libraries
+Requires:	%{name} = %{epoch}:%{version}
 Requires:	glib >= 1.2.6
 
 %description glib
@@ -109,9 +114,15 @@ Czê¶æ aRts wymagaj±ca GLib.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+%{__perl} admin/am_edit
+
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
@@ -134,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
@@ -146,9 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	glib -p /sbin/ldconfig
 %postun	glib -p /sbin/ldconfig
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artscat
@@ -159,29 +170,56 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artsshell
 %attr(755,root,root) %{_bindir}/artswrapper
 %attr(755,root,root) %{_bindir}/testdhandle
-%attr(755,root,root) %{_libdir}/lib[!gqx]*.so.*.*.*
-%{_libdir}/lib[!gqx]*.la
+# shared libraries
+%attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
+%attr(755,root,root) %{_libdir}/libartsflow*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkmedia2*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libmcop*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
+# lt_dlopened modules (*.la needed)
+%attr(755,root,root) %{_libdir}/libarts*playobject.so.*.*.*
+%{_libdir}/libarts*playobject.la
+%attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+%{_libdir}/libartscbackend.la
+%attr(755,root,root) %{_libdir}/libartsdsp*.so.*.*.*
+%{_libdir}/libartsdsp*.la
 %{_libdir}/mcop
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
 %attr(755,root,root) %{_bindir}/mcopidl
-%{_libdir}/*.so
+%attr(755,root,root) %{_libdir}/libartsc.so
+%attr(755,root,root) %{_libdir}/libartsflow*.so
+%attr(755,root,root) %{_libdir}/libkmedia2*.so
+%attr(755,root,root) %{_libdir}/libmcop*.so
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
+%attr(755,root,root) %{_libdir}/libgmcop.so
+%attr(755,root,root) %{_libdir}/libqtmcop.so
+# some apps (incorrectly?) link with libarts*playobject (gg with -lartswavplayobject only?)
+%attr(755,root,root) %{_libdir}/libarts*playobject.so
+%{_libdir}/libartsc.la
+%{_libdir}/libartsflow*.la
+%{_libdir}/libkmedia2*.la
+%{_libdir}/libmcop*.la
+%{_libdir}/libsoundserver_idl.la
+%{_libdir}/libgmcop.la
+%{_libdir}/libqtmcop.la
 %{_includedir}/arts
 %{_includedir}/artsc
 
 %files X11
 %defattr(644,root,root,755)
+# lt_dlopened module (.la needed)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
 %{_libdir}/libx11globalcomm.la
 
 %files glib
 %defattr(644,root,root,755)
+# shared library
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-%{_libdir}/libgmcop.la
 
 %files qt
 %defattr(644,root,root,755)
+# shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
-%{_libdir}/libqtmcop.la
