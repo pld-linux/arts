@@ -147,6 +147,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %patch0 -p1
 
 %build
+cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -154,6 +155,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
 	--enable-final \
+	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
 
 %{__make}
