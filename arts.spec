@@ -22,7 +22,7 @@ Patch0:		%{name}-nonas.patch
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 %endif
 BuildRequires:	audiofile-devel
-BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	glib2-devel >= 2.1.0-3
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 # not needed, only ./configure check for this
