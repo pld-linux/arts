@@ -24,7 +24,7 @@ Group:		Libraries
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	36606412608b4c1683d0f583dfd8e3c6
 Patch0:		kde-common-am18.patch
-Patch1:         kde-common-libltdl-am18.patch
+Patch1:		kde-common-libltdl-am18.patch
 URL:		http://www.kde.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
