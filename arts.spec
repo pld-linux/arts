@@ -3,10 +3,10 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 %bcond_without  esd	# disable esound support
-#bcond_with	cvs	# use cvs sources instead of source0
 #
 
 %define		_state		unstable
+%define		_kdever		3.3
 %define		_ver		1.3.0
 
 Summary:	aRts sound server
