@@ -116,7 +116,6 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 	--with-xinerama	\
 	--with%{?_without_alsa:out}-alsa
 
-
 %{__make}
 
 %install
