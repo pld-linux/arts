@@ -13,12 +13,12 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 #Source0:	http://download.kde.org/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-Source0:        http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	fca8a9ec7538c4fe8e4c79767bb2a7e8
 # http://download.kde.org/stable/3.2.1/src/arts-1.2.1.tar.bz2
 URL:		http://www.kde.org/
@@ -33,6 +33,7 @@ BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
+BuildRequires:	unsermake >= 040511
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	unsermake >= 040511
@@ -41,10 +42,24 @@ Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-aRts sound server.
+The Analog Real-Time Synthesizer, or aRts, is a modular system for
+synthesizing sound and music on a digital computer. Using small
+building blocks called modules, the user can easily build complex
+audio processing tools. Modules typically provide functions such as
+sound waveform generators, filters, audio effects, mixing, and
+playback of digital audio in different file formats. The artsd sound
+server mixes audio from several sources in real time, allowing
+multiple sound applications to transparently share access to sound
+hardware.
 
 %description -l pl
-Serwer d¼wiêku aRts.
+Analog Real-Time Synthesizer (w skrócie aRts) to modularny system do
+obs³ugi d¼wiêku i muzyki na komputerze. Za pomoc± modu³ów u¿ytkownik
+mo¿e z powodzeniem budowaæ kompleksowe narzêdzia przetwarzania
+d¼wiêku. Modu³y umo¿liwiaj± generacjê kstza³tu fali, filtrowanie,
+efekty audio, miksowanie oraz odtwarzanie d¼wiêku cyfrowego w ró¿nych
+formatach. Serwer d¼wiêku artsd umo¿liwia równie¿ jednoczesne
+odtwarzanie d¼wiêku z wielu ¼róde³.
 
 %description -l pt_BR
 O aRts é um sintetizador analógico em tempo real que é completamente
@@ -81,9 +96,9 @@ arts.
 %description devel -l pt_BR
 Arquivos para desenvolvimento com o o aRts.
 
-# separate from arts-devel because they are mostly independent and
-# have very # different deps there is no artsc base - it would be
-# small and would require arts - so there is no reason to separate
+# separate from arts-devel because they are mostly independent and #
+have very # different deps there is no artsc base - it would be #
+small and would require arts - so there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
 Summary(pl):	Pliki programistyczne bibliotek artsc
@@ -144,8 +159,8 @@ Pliki programistyczne dla biblioteki qtmcop.
 %setup -q -n %{name}-%{version}
 
 %build
-cp /usr/share/automake/config.sub admin
-export UNSERMAKE=/usr/share/unsermake/unsermake
+cp %{_datadir}/automake/config.sub admin
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
