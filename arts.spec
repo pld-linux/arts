@@ -2,9 +2,6 @@
 # _with_nas		- enable NAS audio support
 # _without_alsa		- disable ALSA support
 #
-%ifarch sparc sparcv9 sparc64
-%define		_without_alsa	1
-%endif
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
