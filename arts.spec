@@ -4,20 +4,21 @@
 #
 
 %define		_state		snapshots
-%define		_ver		030329
+%define		_ver		1.2
+%define		_snap		030403
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.2
-Release:	0.%{_ver}.1
+Release:	0.%{_snap}.1
 Epoch:		12
 License:	LGPL
 Vendor:		The KDE Team
 Group:		Libraries
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_ver}.tar.bz2
+Source0:	http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-video-20030314.patch
 Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/arts-1.1.1-streaming-20030317.patch
 %ifnarch sparc sparcv9 sparc64
@@ -37,7 +38,7 @@ BuildRequires:	qt-devel >= 3.1
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_htmldir	/usr/share/doc/kde/HTML
+%define		_htmldir	%{_docdir}/kde/HTML
 
 %define		no_install_post_chrpath		1
 
@@ -112,7 +113,7 @@ GLib dependend part of aRts.
 Czê¶æ aRts wymagaj±ca GLib.
 
 %prep
-%setup -q -n %{name}-%{_ver}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 %patch1 -p1
 %build
@@ -131,18 +132,6 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
-%post X11   -p /sbin/ldconfig
-%postun X11 -p /sbin/ldconfig
-
-%post qt   -p /sbin/ldconfig
-%postun qt -p /sbin/ldconfig
-
-%post glib   -p /sbin/ldconfig
-%postun glib -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
