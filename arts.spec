@@ -106,10 +106,6 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 #%{__make} -f Makefile.cvs
 
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-	CFLAGS="`pkg-config libpng12 --cflags` %{rpmcflags}"
-fi
-
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--enable-final \
