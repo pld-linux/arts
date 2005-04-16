@@ -1,0 +1,30 @@
+--- arts-1.1.1/soundserver/kmedia2.idl.video	2003-03-14 22:08:11.000000000 +0100
++++ arts-1.1.1/soundserver/kmedia2.idl	2003-03-14 22:29:04.000000000 +0100
+@@ -206,14 +206,23 @@
+  */
+ interface VideoPlayObject {
+     /**
+-     * video output window (active)
+-     */
+-    attribute long x11WindowId;
+-    /**
+      * take a snapshot and draw it onto a pixmap
+      * returns the X11 pixmap ID or -1 on error
+      */
+     long x11Snapshot();
++    /**
++     * returns the current value of the property
++     *
++     * @param name the name of the property to return
++     */
++    long property(string name);
++    /**
++     * sets a property
++     *
++     * @param name the name of the property to set
++     * @param value the new value for the property
++     */
++    void property(string name, long value);
+ };
+ 
+ /**
