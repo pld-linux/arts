@@ -13,7 +13,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -168,7 +168,6 @@ cp -f /usr/share/automake/config.sub admin
 
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
-	kde_cv_val_gcc_visibility_bug=yes \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
