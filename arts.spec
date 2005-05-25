@@ -5,20 +5,20 @@
 %bcond_without	esd	# disable esound support
 #
 %define		_state		stable
-%define		_kdever		3.4
-%define		_ver		1.4.0
+%define		_kdever		3.4.1
+%define		_ver		1.4.1
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	4
+Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a155bb00f56c71bc475890249e2dcaa9
+# Source0-md5:	f632984ddc976a1e4243718af54559ee
 Patch100:	%{name}-branch.diff
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
@@ -157,7 +157,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
