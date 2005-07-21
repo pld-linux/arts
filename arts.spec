@@ -5,20 +5,20 @@
 %bcond_without	esd	# disable esound support
 #
 %define		_state		stable
-%define		_kdever		3.4.1
-%define		_ver		1.4.1
+%define		_kdever		3.4.2
+%define		_ver		1.4.2
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	f632984ddc976a1e4243718af54559ee
+# Source0-md5:	bfa5b0efa7454c15976c4e5c618d2db4
 Patch100:	%{name}-branch.diff
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
