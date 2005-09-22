@@ -6,21 +6,22 @@
 #
 
 %define		_state		unstable
-%define		_kdever		3.4.89
-%define		_ver		1.4.89
-%define		_snap		050428
+%define		_kdever		3.4.91
+%define		_ver		1.4.91
+#%define		_snap		050428
 
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}.%{_snap}
+Version:	%{_ver} 
+#Version:	%{_ver}.%{_snap}
 Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
 ##% Source0-md5:	a155bb00f56c71bc475890249e2dcaa9
 Patch0:		kde-common-PLD.patch
 #Patch100:	%{name}-branch.diff
@@ -160,7 +161,8 @@ Development files for qtmcop library.
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+#%setup -q -n %{name}-%{_snap}
+%setup -q
 %patch0 -p1
 #%patch100 -p1
 
