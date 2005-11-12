@@ -5,7 +5,7 @@
 %bcond_without	esd	# disable esound support
 #
 %define		_state		stable
-%define		_kdever		3.5.0
+%define		_kdever		3.5
 %define		_ver		1.5.0
 #
 Summary:	aRts sound server
