@@ -177,7 +177,9 @@ cp -f /usr/share/automake/config.sub admin
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
 
-%{__make}
+%{__make} \
+	CXXLD=%{_host_cpu}-%{_vendor}-%{_os}-g++ \
+	CCLD=%{_host_cpu}-%{_vendor}-%{_os}-gcc
 
 %install
 rm -rf $RPM_BUILD_ROOT
