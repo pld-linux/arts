@@ -13,12 +13,12 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	4bc28aeb5d6b40286888ad9a63fa0668
+# Source0-md5:	e90a32ee47d5cdc51fe1b7f6f6c0df63
 Patch100:	%{name}-branch.diff
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
