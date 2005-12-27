@@ -173,7 +173,7 @@ cp -f /usr/share/automake/config.sub admin
 %endif
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
 	%{!?debug:--disable-rpath} \
-	--enable-final \
+	--disable-final \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
 
