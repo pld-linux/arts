@@ -3,6 +3,9 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 %bcond_without	esd	# disable esound support
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden'
+					# & '--fvisibility-inlines-hidden'
+					# to g++ 
 #
 %define		_state		stable
 %define		_kdever		3.5
@@ -13,7 +16,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -28,6 +31,7 @@ BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
+%{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
@@ -35,8 +39,8 @@ BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 6:3.2.1-4
-#BuildRequires:	unsermake >= 040805-1
+%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
+%{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -162,8 +166,6 @@ Pliki programistyczne dla biblioteki qtmcop.
 %build
 cp -f /usr/share/automake/config.sub admin
 
-#export UNSERMAKE=/usr/share/unsermake/unsermake
-
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -174,6 +176,7 @@ cp -f /usr/share/automake/config.sub admin
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
 	%{!?debug:--disable-rpath} \
 	--disable-final \
+	%{?with_hidden_visibility:--enable-gcc-hidden-visibility} \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
 
