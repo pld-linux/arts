@@ -3,7 +3,7 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 %bcond_without	esd	# disable esound support
-%bcond_with	hidden_visibility	# pass '--fvisibility=hidden'
+%bcond_without	hidden_visibility	# pass '--fvisibility=hidden'
 					# & '--fvisibility-inlines-hidden'
 					# to g++ 
 #
@@ -16,7 +16,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
