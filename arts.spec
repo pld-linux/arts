@@ -8,20 +8,20 @@
 					# to g++ 
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		1.5.1
+%define		_kdever		3.5.2
+%define		_ver		1.5.2
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	%{_ver}
-Release:	2
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	71c4996de36aa7f8726e54bb3d5bf059
+# Source0-md5:	e1eb7969ea16aab2bdd9d1a9736d6af3
 Patch100:	%{name}-branch.diff
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
@@ -190,16 +190,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# Debian manpages
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cd debian/man
-for f in *.sgml ; do
-	base="$(basename $f .sgml)"
-	upper="$(echo ${base} | tr a-z A-Z)"
-	db2man $f
-	install ${upper}.1 $RPM_BUILD_ROOT%{_mandir}/man1/${base}.1
-done
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -244,13 +234,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
-%{_mandir}/man1/artscat.1*
-%{_mandir}/man1/artsd.1*
-%{_mandir}/man1/artsdsp.1*
-%{_mandir}/man1/artsplay.1*
-%{_mandir}/man1/artsrec.1*
-%{_mandir}/man1/artsshell.1*
-%{_mandir}/man1/artswrapper.1*
+#%{_mandir}/man1/artscat.1*
+#%{_mandir}/man1/artsd.1*
+#%{_mandir}/man1/artsdsp.1*
+#%{_mandir}/man1/artsplay.1*
+#%{_mandir}/man1/artsrec.1*
+#%{_mandir}/man1/artsshell.1*
+#%{_mandir}/man1/artswrapper.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -279,7 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 #
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
-%{_mandir}/man1/mcopidl.1*
+#%{_mandir}/man1/mcopidl.1*
 
 %files -n artsc-devel
 %defattr(644,root,root,755)
@@ -290,7 +280,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so
 %{_libdir}/libartsc.la
 %{_includedir}/artsc
-%{_mandir}/man1/artsc-config.1*
+#%{_mandir}/man1/artsc-config.1*
 
 %files X11
 %defattr(644,root,root,755)
