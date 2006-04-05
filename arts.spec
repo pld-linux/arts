@@ -3,19 +3,16 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 %bcond_without	esd	# disable esound support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden'
-					# & '--fvisibility-inlines-hidden'
-					# to g++ 
+%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
 %define		_kdever		3.5.2
-%define		_ver		1.5.2
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}
+Version:	1.5.2
 Release:	1
 Epoch:		13
 License:	LGPL
@@ -39,8 +36,8 @@ BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
+%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
