@@ -3,23 +3,23 @@
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
 %bcond_without	esd	# disable esound support
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
-
 %define		_state		stable
-%define		_kdever		3.4
-%define		_ver		1.4.0
-
+%define		_kdever		3.5.2
+#
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	%{_ver}
-Release:	0.1
+Version:	1.5.2
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a155bb00f56c71bc475890249e2dcaa9
+# Source0-md5:	e1eb7969ea16aab2bdd9d1a9736d6af3
+Patch100:	%{name}-branch.diff
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -28,6 +28,7 @@ BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
+%{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
@@ -35,8 +36,8 @@ BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
-BuildRequires:	qt-devel >= 6:3.2.1-4
-#BuildRequires:	unsermake >= 040805-1
+%{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
+%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -157,11 +158,10 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q
+#%patch100 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
-#export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -172,27 +172,20 @@ cp -f /usr/share/automake/config.sub admin
 %endif
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
 	%{!?debug:--disable-rpath} \
-	--enable-final \
+	--disable-final \
+	%{?with_hidden_visibility:--enable-gcc-hidden-visibility} \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_alsa:out}-alsa
 
-%{__make}
+%{__make} \
+	CXXLD=%{_host_cpu}-%{_vendor}-%{_os}-g++ \
+	CCLD=%{_host_cpu}-%{_vendor}-%{_os}-gcc
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# Debian manpages
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-cd debian/man
-for f in *.sgml ; do
-	base="$(basename $f .sgml)"
-	upper="$(echo ${base} | tr a-z A-Z)"
-	db2man $f
-	install ${upper}.1 $RPM_BUILD_ROOT%{_mandir}/man1/${base}.1
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -238,13 +231,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
-%{_mandir}/man1/artscat.1*
-%{_mandir}/man1/artsd.1*
-%{_mandir}/man1/artsdsp.1*
-%{_mandir}/man1/artsplay.1*
-%{_mandir}/man1/artsrec.1*
-%{_mandir}/man1/artsshell.1*
-%{_mandir}/man1/artswrapper.1*
+#%{_mandir}/man1/artscat.1*
+#%{_mandir}/man1/artsd.1*
+#%{_mandir}/man1/artsdsp.1*
+#%{_mandir}/man1/artsplay.1*
+#%{_mandir}/man1/artsrec.1*
+#%{_mandir}/man1/artsshell.1*
+#%{_mandir}/man1/artswrapper.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -273,7 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 #
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
-%{_mandir}/man1/mcopidl.1*
+#%{_mandir}/man1/mcopidl.1*
 
 %files -n artsc-devel
 %defattr(644,root,root,755)
@@ -284,7 +277,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so
 %{_libdir}/libartsc.la
 %{_includedir}/artsc
-%{_mandir}/man1/artsc-config.1*
+#%{_mandir}/man1/artsc-config.1*
 
 %files X11
 %defattr(644,root,root,755)
