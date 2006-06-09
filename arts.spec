@@ -13,7 +13,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.3
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -158,7 +158,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
