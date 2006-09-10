@@ -1,51 +1,100 @@
-Index: arts/soundserver/artswrapper.c
+Index: tests/testifacerepo.cc
 ===================================================================
---- arts/soundserver/artswrapper.c	(.../tags/arts/1.5.3)	(revision 549703)
-+++ arts/soundserver/artswrapper.c	(.../branches/arts/1.5)	(revision 549703)
-@@ -95,6 +95,10 @@
- #else
- 		setreuid(-1, getuid());
- #endif
-+		if (geteuid() != getuid()) {
-+			perror("setuid()");
-+			return 2;
-+		}
- 	}
+--- tests/testifacerepo.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ tests/testifacerepo.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -21,7 +21,7 @@
+     */
  
- 	if(argc == 0)
-Index: arts/soundserver/crashhandler.cc
+ #include <algorithm>
+-#include "core.h"
++#include "common.h"
+ #include "test.h"
+ 
+ using namespace Arts;
+Index: tests/testanyref.cc
 ===================================================================
---- arts/soundserver/crashhandler.cc	(.../tags/arts/1.5.3)	(revision 549703)
-+++ arts/soundserver/crashhandler.cc	(.../branches/arts/1.5)	(revision 549703)
-@@ -196,7 +196,12 @@
-           argv[i++] = NULL;
+--- tests/testanyref.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ tests/testanyref.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -20,8 +20,7 @@
  
-           setgid(getgid());
--          setuid(getuid());
-+          if (getuid() != geteuid())
-+            setuid(getuid());
-+          if (getuid() != geteuid()) {
-+	    perror("setuid()");
-+            exit(255);
-+          }
+     */
  
-           execvp(crashApp, argv);
+-#include "anyref.h"
+-#include "core.h"
++#include "common.h"
+ #include "test.h"
  
-Index: arts/flow/gsl/gslmagic.c
+ using namespace Arts;
+Index: flow/audioioalsa.cc
 ===================================================================
---- arts/flow/gsl/gslmagic.c	(.../tags/arts/1.5.3)	(revision 549703)
-+++ arts/flow/gsl/gslmagic.c	(.../branches/arts/1.5)	(revision 549703)
-@@ -616,7 +616,7 @@
-     return FALSE;
+--- flow/audioioalsa.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ flow/audioioalsa.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -114,7 +114,11 @@
+ 	 */
+     m_card = snd_defaults_pcm_card();  //!! need interface !!
+     m_device = snd_defaults_pcm_device(); //!!
++#ifdef WORDS_BIGENDIAN
++    m_format = SND_PCM_SFMT_S16_BE;
++#else
+     m_format = SND_PCM_SFMT_S16_LE;
++#endif
+     m_bufferMode = block;  //block/stream (stream mode doesn't work yet)
  
-   do
--    ret = fstat (bfile->fd, &buf) < 0;
-+    ret = fstat (bfile->fd, &buf);
-   while (ret < 0 && errno == EINTR);
-   if (ret < 0)
-     {
+ 	if(m_card >= 0) {
+Index: examples/referenceinfo.cc
+===================================================================
+--- examples/referenceinfo.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ examples/referenceinfo.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -23,7 +23,7 @@
+ 
+     */
+ 
+-#include "core.h"
++#include "common.h"
+ #include <stdio.h>
+ 
+ using namespace Arts;
+Index: examples/x11commtest.cc
+===================================================================
+--- examples/x11commtest.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ examples/x11commtest.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -25,7 +25,7 @@
+     */
+ 
+ #include <iostream>
+-#include "core.h"
++#include "common.h"
+ 
+ using namespace std;
+ using namespace Arts;
+Index: examples/helloserver.cc
+===================================================================
+--- examples/helloserver.cc	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ examples/helloserver.cc	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -23,7 +23,7 @@
+ 
+     */
+ 
+-#include "core.h"
++#include "common.h"
+ #include "hello_impl.h"
+ 
+ #include <stdio.h>
+Index: Makefile.am.in
+===================================================================
+--- Makefile.am.in	(.../tags/arts/1.5.4/arts)	(revision 582125)
++++ Makefile.am.in	(.../branches/arts/1.5/arts)	(revision 582125)
+@@ -21,7 +21,7 @@
+ 
+ $(top_srcdir)/acinclude.m4: $(top_srcdir)/libltdl/ltdl.m4
+ 
+-AUTOMAKE_OPTIONS = foreign 1.5
++AUTOMAKE_OPTIONS = foreign 1.6.1
+ COMPILE_FIRST = libltdl mcop mcopidl flow mcop_mt soundserver artsc examples tests doc 
+ EXTRA_DIST = admin
+ 
 
-Property changes on: arts
+Property changes on: .
 ___________________________________________________________________
 Name: svn:externals
    + libltdl https://svn.kde.org/home/kde/branches/KDE/3.5/kdelibs/libltdl
