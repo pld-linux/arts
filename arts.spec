@@ -13,13 +13,14 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.4
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	886ba4a13dc0da312d94c09f50c3ffe6
 Patch100:	%{name}-branch.diff
+Patch0:	%{name}-libs.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -159,6 +160,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %prep
 %setup -q
 #%patch100 -p1
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
