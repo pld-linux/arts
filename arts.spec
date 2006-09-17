@@ -20,7 +20,8 @@ Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	886ba4a13dc0da312d94c09f50c3ffe6
 Patch100:	%{name}-branch.diff
-Patch0:		kde-ac260-lt.patch
+Patch0:		%{name}-libs.patch
+Patch1:		kde-ac260-lt.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -161,6 +162,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %setup -q
 #%patch100 -p1
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
