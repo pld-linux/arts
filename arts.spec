@@ -17,8 +17,7 @@ Release:	0.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ep09.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	3b0aa1ee08c6ef2aefd8d2d88d1ec146
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
