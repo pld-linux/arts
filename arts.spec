@@ -166,9 +166,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
 %{__make} -f admin/Makefile.common cvs
-
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
 %if "%{_lib}" == "lib64"
