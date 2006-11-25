@@ -22,7 +22,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
-Patch2:		kde-ac260.patch
+Patch2:		kde-am.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
