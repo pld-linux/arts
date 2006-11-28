@@ -13,7 +13,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.5
-Release:	1
+Release:	1.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -43,6 +43,8 @@ BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define         _noautoreq      libtool(.*)
 
 %description
 The Analog Real-Time Synthesizer, or aRts, is a modular system for
