@@ -13,7 +13,7 @@ Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.5
-Release:	2
+Release:	2.1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -23,11 +23,14 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		kde-am.patch
+Patch3:		%{name}-extension_loader.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	boost-filesystem-devel
+BuildRequires:	boost-regex-devel
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
@@ -43,8 +46,6 @@ BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 Obsoletes:	arts-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _noautoreq      libtool(.*)
 
 %description
 The Analog Real-Time Synthesizer, or aRts, is a modular system for
@@ -167,6 +168,9 @@ Pliki programistyczne dla biblioteki qtmcop.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+
+find . -type f -name '*.mcopclass' | xargs %{__sed} -i -e 's:\.la::'
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -226,17 +230,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
 %attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
-# lt_dlopened modules (*.la needed)
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
-%{_libdir}/libartscbackend.la
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
-%{_libdir}/libartsdsp.la
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
-%{_libdir}/libartsdsp_st.la
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
-%{_libdir}/libartsgslplayobject.la
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
-%{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
 #%{_mandir}/man1/artscat.1*
@@ -250,48 +248,47 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mcopidl
-%attr(755,root,root) %{_libdir}/libartsflow.so
-%attr(755,root,root) %{_libdir}/libartsflow_idl.so
-%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
-%attr(755,root,root) %{_libdir}/libartswavplayobject.so
-%attr(755,root,root) %{_libdir}/libgmcop.so
-%attr(755,root,root) %{_libdir}/libkmedia2.so
-%attr(755,root,root) %{_libdir}/libkmedia2_idl.so
-%attr(755,root,root) %{_libdir}/libmcop.so
-%attr(755,root,root) %{_libdir}/libmcop_mt.so
-%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
-# it seems to be only (lt_)dlopened, nothing links with it - so not needed
-# %attr(755,root,root) %{_libdir}/libx11globalcomm.so
-# shared libraries
-%{_libdir}/libartsflow.la
-%{_libdir}/libartsflow_idl.la
-%{_libdir}/libgmcop.la
-%{_libdir}/libkmedia2.la
-%{_libdir}/libkmedia2_idl.la
-%{_libdir}/libmcop.la
-%{_libdir}/libmcop_mt.la
-%{_libdir}/libsoundserver_idl.la
-#
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
+%{_libdir}/libartsflow.la
+%attr(755,root,root) %{_libdir}/libartsflow.so
+%{_libdir}/libartsflow_idl.la
+%attr(755,root,root) %{_libdir}/libartsflow_idl.so
+%{_libdir}/libartsgslplayobject.la
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
+%{_libdir}/libartswavplayobject.la
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so
+%{_libdir}/libgmcop.la
+%attr(755,root,root) %{_libdir}/libgmcop.so
+%{_libdir}/libkmedia2.la
+%attr(755,root,root) %{_libdir}/libkmedia2.so
+%{_libdir}/libkmedia2_idl.la
+%attr(755,root,root) %{_libdir}/libkmedia2_idl.so
+%{_libdir}/libmcop.la
+%attr(755,root,root) %{_libdir}/libmcop.so
+%{_libdir}/libmcop_mt.la
+%attr(755,root,root) %{_libdir}/libmcop_mt.so
+%{_libdir}/libsoundserver_idl.la
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
 #%{_mandir}/man1/mcopidl.1*
 
 %files -n artsc-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
-%attr(755,root,root) %{_libdir}/libartsc.so
-%attr(755,root,root) %{_libdir}/libartscbackend.so
-%attr(755,root,root) %{_libdir}/libartsdsp.so
-%attr(755,root,root) %{_libdir}/libartsdsp_st.so
-%{_libdir}/libartsc.la
 %{_includedir}/artsc
+%{_libdir}/libartsc.la
+%attr(755,root,root) %{_libdir}/libartsc.so
+%{_libdir}/libartscbackend.la
+%attr(755,root,root) %{_libdir}/libartscbackend.so
+%{_libdir}/libartsdsp.la
+%attr(755,root,root) %{_libdir}/libartsdsp.so
+%{_libdir}/libartsdsp_st.la
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so
 #%{_mandir}/man1/artsc-config.1*
 
 %files X11
 %defattr(644,root,root,755)
-# lt_dlopened module (.la needed)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%{_libdir}/libx11globalcomm.la
 
 %files qt
 %defattr(644,root,root,755)
@@ -300,6 +297,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files qt-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqtmcop.so
-%{_libdir}/libqtmcop.la
 %{_includedir}/arts/qiomanager.h
+%{_libdir}/libqtmcop.la
+%attr(755,root,root) %{_libdir}/libqtmcop.so
