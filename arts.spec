@@ -9,8 +9,8 @@
 %define		_kdever		3.5.6
 #
 Summary:	aRts sound server
-Summary(pl.UTF-8):   Serwer dźwięku
-Summary(pt_BR.UTF-8):   Servidor de sons usado pelo KDE
+Summary(pl.UTF-8):	Serwer dźwięku
+Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.6
 Release:	1
@@ -78,8 +78,8 @@ outros.
 
 %package devel
 Summary:	Sound server - header files
-Summary(pl.UTF-8):   Serwer dźwięku - pliki nagłówkowe
-Summary(pt_BR.UTF-8):   Arquivos para desenvolvimento com o o aRts
+Summary(pl.UTF-8):	Serwer dźwięku - pliki nagłówkowe
+Summary(pt_BR.UTF-8):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 # not necessary for all libs (e.g. mcop), but propagated by artsflow
@@ -108,7 +108,7 @@ Arquivos para desenvolvimento com o o aRts.
 # there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
-Summary(pl.UTF-8):   Pliki programistyczne bibliotek artsc
+Summary(pl.UTF-8):	Pliki programistyczne bibliotek artsc
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glib2-devel >= 2.0.0
@@ -124,7 +124,7 @@ dźwięku aRts).
 
 %package X11
 Summary:	X11 dependent part of aRts
-Summary(pl.UTF-8):   Część aRts wymagająca X11
+Summary(pl.UTF-8):	Część aRts wymagająca X11
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -136,7 +136,7 @@ Część aRts wymagająca X11 (moduł x11globalcomm).
 
 %package qt
 Summary:	Qt dependend part of aRts
-Summary(pl.UTF-8):   Część aRts wymagająca Qt
+Summary(pl.UTF-8):	Część aRts wymagająca Qt
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	qt >= 6:3.2.1-4
@@ -149,7 +149,7 @@ Część aRts wymagająca Qt (biblioteka qtmcop).
 
 %package qt-devel
 Summary:	Development files for qtmcop library
-Summary(pl.UTF-8):   Pliki programistyczne dla biblioteki qtmcop
+Summary(pl.UTF-8):	Pliki programistyczne dla biblioteki qtmcop
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
