@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.6
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -196,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# remove unwanted boost deps from .la
+sed -i 's:-lboost_filesystem -lboost_regex::' $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
