@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.8
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
