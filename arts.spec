@@ -6,22 +6,21 @@
 %bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.8
+%define		_kdever		3.5.4
 #
 Summary:	aRts sound server
 Summary(pl):	Serwer d¼wiêku
 Summary(pt_BR):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.5.8
-Release:	1
+Version:	1.5.4
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	061ce49351d970a81f4c0a1b0339fb34
-#Patch100:	%{name}-branch.diff
-Patch0:		%{name}-libs.patch
-Patch1:		kde-ac260-lt.patch
+# Source0-md5:	886ba4a13dc0da312d94c09f50c3ffe6
+Patch100:	%{name}-branch.diff
+Patch0:	%{name}-libs.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -162,11 +161,12 @@ Pliki programistyczne dla biblioteki qtmcop.
 %setup -q
 #%patch100 -p1
 %patch0 -p1
-%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
+
 %{__make} -f admin/Makefile.common cvs
+
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
 %if "%{_lib}" == "lib64"
