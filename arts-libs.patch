@@ -1,0 +1,11 @@
+--- arts-1.5.4/artsc/artsc-config.in~	2005-09-10 11:13:34.000000000 +0300
++++ arts-1.5.4/artsc/artsc-config.in	2006-09-14 21:56:35.738254242 +0300
+@@ -27,7 +27,7 @@
+ do
+   case $1 in
+     --libs)
+-	  flags="$flags -L$libdir $libdl -lartsc @USE_THREADS@ @LIBPTHREAD@ @GLIB_LDFLAGS@ @GLIB_LIBADD@"
++	  flags="$flags $libdl -lartsc @USE_THREADS@ @LIBPTHREAD@ @GLIB_LDFLAGS@ @GLIB_LIBADD@"
+ 	  ;;
+     --cflags)
+ 	  flags="$flags -I$includedir/artsc @GLIB_CFLAGS@"

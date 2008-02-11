@@ -1,0 +1,80 @@
+--- arts-1.5.5/mcop/Makefile.am.orig	2005-09-10 10:13:32.000000000 +0200
++++ arts-1.5.5/mcop/Makefile.am	2007-01-05 21:47:58.212920750 +0100
+@@ -16,7 +16,9 @@
+ 	 trader_impl.cc dynamicrequest.cc anyref.cc loopback.cc \
+ 	 delayedreturn.cc thread.cc dynamicskeleton.cc
+ 
++CXXFLAGS += -fexceptions
+ libmcop_la_LIBADD = $(LIBSOCKET) $(GLIB_LIBADD) $(top_builddir)/libltdl/libltdlc.la
++libmcop_la_LIBADD += -lboost_filesystem -lboost_regex
+ libmcop_la_LDFLAGS = -no-undefined -version-info 1:0 $(GLIB_LDFLAGS) $(all_libraries)
+ 
+ artsincludedir = $(includedir)/arts
+--- arts-1.5.5/mcop/extensionloader.cc.orig	2005-09-10 10:13:32.000000000 +0200
++++ arts-1.5.5/mcop/extensionloader.cc	2007-01-05 22:36:03.034272500 +0100
+@@ -28,26 +28,58 @@
+ #include <unistd.h>
+ #include <assert.h>
+ 
++#include <boost/filesystem/exception.hpp>
++#include <boost/filesystem/operations.hpp>
++#include <boost/regex.hpp>
++
+ using namespace std;
+ using namespace Arts;
+ 
++static std::string makeLibraryName( std::string const& dir, std::string const& name )
++{
++	try
++	{
++		std::string p = dir + "/" + name;
++		if ( boost::filesystem::exists( p + ".so" ) )
++			return ( p + ".so" );
++		boost::regex re( p + "(-.+){0,1}\\..+", boost::regex::extended );
++		for ( boost::filesystem::directory_iterator i( dir );
++			i != boost::filesystem::directory_iterator(); ++i )
++		{
++			boost::smatch m;
++			if ( boost::regex_match( i->string(), m, re ) )
++				return m.str();
++		}
++		return ( p + ".la" );
++	}
++	catch ( boost::filesystem::filesystem_error const& )
++	{
++	}
++	return std::string();
++}
++
+ ExtensionLoader::ExtensionLoader(const string& filename) :handle(0)
+ {
+ 	string dlfilename;
+-
+ 	assert(filename.size());
+-	if(filename[0] == '/')
+-		dlfilename = filename;
+-	else
++	try
++	{
++		boost::filesystem::path p( filename );
++		if ( p.has_root_directory() )
++			dlfilename = makeLibraryName( p.branch_path().string(), p.leaf() );
++	}
++	catch ( boost::filesystem::filesystem_error const& )
++	{
++	}
++	if ( dlfilename.empty() )
+ 	{
+ 		const vector<string> *path = MCOPUtils::extensionPath();
+ 
+ 		vector<string>::const_iterator pi;
+ 		for(pi = path->begin(); pi != path->end(); pi++)
+ 		{
+-			dlfilename = *pi + "/" + filename;
+-
+-			if(access(dlfilename.c_str(),F_OK) == 0)
++			dlfilename = makeLibraryName( *pi, filename );
++			if ( !dlfilename.empty() && ( access( dlfilename.c_str(), F_OK ) == 0 ) )
+ 				break;
+ 		}
+ 	}
