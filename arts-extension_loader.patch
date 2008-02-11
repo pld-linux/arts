@@ -30,7 +30,7 @@
 +		std::string p = dir + "/" + name;
 +		if ( boost::filesystem::exists( p + ".so" ) )
 +			return ( p + ".so" );
-+		boost::regex re( p + ".*so\\..+", boost::regex::extended );
++		boost::regex re( p + "(-.+){0,1}\\..+", boost::regex::extended );
 +		for ( boost::filesystem::directory_iterator i( dir );
 +			i != boost::filesystem::directory_iterator(); ++i )
 +		{
