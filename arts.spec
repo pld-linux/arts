@@ -22,11 +22,14 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
+Patch2:		%{name}-extension_loader.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	boost-filesystem-devel
+BuildRequires:	boost-regex-devel
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
@@ -163,10 +166,15 @@ Pliki programistyczne dla biblioteki qtmcop.
 #%patch100 -p1
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+find . -type f -name '*.mcopclass' | xargs %{__sed} -i -e 's:\.la::'
 
 %build
 cp -f /usr/share/automake/config.sub admin
+
 %{__make} -f admin/Makefile.common cvs
+
 %configure \
 	%{!?with_nas:ac_cv_header_audio_audiolib_h=no} \
 %if "%{_lib}" == "lib64"
@@ -189,8 +197,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# it seems to be only (lt_)dlopened, nothing links with it - so not needed
-rm -f $RPM_BUILD_ROOT%{_libdir}/libx11globalcomm.so
+# remove unwanted boost deps from .la
+sed -i 's:-lboost_filesystem -lboost_regex::' $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -215,39 +223,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artswrapper
 # shared libraries
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsc.so.0
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsflow.so.1
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsflow_idl.so.1
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgmcop.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libkmedia2.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libkmedia2_idl.so.1
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libmcop.so.1
 %attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libmcop_mt.so.1
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsoundserver_idl.so.1
-# lt_dlopened modules (*.la needed)
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartscbackend.so.0
-%{_libdir}/libartscbackend.la
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsdsp.so.0
-%{_libdir}/libartsdsp.la
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsdsp_st.so.0
-%{_libdir}/libartsdsp_st.la
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartsgslplayobject.so.0
-%{_libdir}/libartsgslplayobject.la
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libartswavplayobject.so.0
-%{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
 #%{_mandir}/man1/artscat.1*
@@ -261,56 +249,55 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mcopidl
-%attr(755,root,root) %{_libdir}/libartsflow.so
-%attr(755,root,root) %{_libdir}/libartsflow_idl.so
-%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
-%attr(755,root,root) %{_libdir}/libartswavplayobject.so
-%attr(755,root,root) %{_libdir}/libgmcop.so
-%attr(755,root,root) %{_libdir}/libkmedia2.so
-%attr(755,root,root) %{_libdir}/libkmedia2_idl.so
-%attr(755,root,root) %{_libdir}/libmcop.so
-%attr(755,root,root) %{_libdir}/libmcop_mt.so
-%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
-# shared libraries
-%{_libdir}/libartsflow.la
-%{_libdir}/libartsflow_idl.la
-%{_libdir}/libgmcop.la
-%{_libdir}/libkmedia2.la
-%{_libdir}/libkmedia2_idl.la
-%{_libdir}/libmcop.la
-%{_libdir}/libmcop_mt.la
-%{_libdir}/libsoundserver_idl.la
-#
 %{_includedir}/arts
 %exclude %{_includedir}/arts/qiomanager.h
+%{_libdir}/libartsflow.la
+%attr(755,root,root) %{_libdir}/libartsflow.so
+%{_libdir}/libartsflow_idl.la
+%attr(755,root,root) %{_libdir}/libartsflow_idl.so
+%{_libdir}/libartsgslplayobject.la
+%attr(755,root,root) %{_libdir}/libartsgslplayobject.so
+%{_libdir}/libartswavplayobject.la
+%attr(755,root,root) %{_libdir}/libartswavplayobject.so
+%{_libdir}/libgmcop.la
+%attr(755,root,root) %{_libdir}/libgmcop.so
+%{_libdir}/libkmedia2.la
+%attr(755,root,root) %{_libdir}/libkmedia2.so
+%{_libdir}/libkmedia2_idl.la
+%attr(755,root,root) %{_libdir}/libkmedia2_idl.so
+%{_libdir}/libmcop.la
+%attr(755,root,root) %{_libdir}/libmcop.so
+%{_libdir}/libmcop_mt.la
+%attr(755,root,root) %{_libdir}/libmcop_mt.so
+%{_libdir}/libsoundserver_idl.la
+%attr(755,root,root) %{_libdir}/libsoundserver_idl.so
 #%{_mandir}/man1/mcopidl.1*
 
 %files -n artsc-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/artsc-config
-%attr(755,root,root) %{_libdir}/libartsc.so
-%attr(755,root,root) %{_libdir}/libartscbackend.so
-%attr(755,root,root) %{_libdir}/libartsdsp.so
-%attr(755,root,root) %{_libdir}/libartsdsp_st.so
-%{_libdir}/libartsc.la
 %{_includedir}/artsc
+%{_libdir}/libartsc.la
+%attr(755,root,root) %{_libdir}/libartsc.so
+%{_libdir}/libartscbackend.la
+%attr(755,root,root) %{_libdir}/libartscbackend.so
+%{_libdir}/libartsdsp.la
+%attr(755,root,root) %{_libdir}/libartsdsp.so
+%{_libdir}/libartsdsp_st.la
+%attr(755,root,root) %{_libdir}/libartsdsp_st.so
 #%{_mandir}/man1/artsc-config.1*
 
 %files X11
 %defattr(644,root,root,755)
-# lt_dlopened module (.la needed)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libx11globalcomm.so.1
-%{_libdir}/libx11globalcomm.la
 
 %files qt
 %defattr(644,root,root,755)
 # shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqtmcop.so.1
 
 %files qt-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqtmcop.so
-%{_libdir}/libqtmcop.la
 %{_includedir}/arts/qiomanager.h
+%{_libdir}/libqtmcop.la
+%attr(755,root,root) %{_libdir}/libqtmcop.so
