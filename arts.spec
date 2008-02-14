@@ -6,19 +6,19 @@
 %bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.8
+%define		_kdever		3.5.9
 #
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.5.8
+Version:	1.5.9
 Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	061ce49351d970a81f4c0a1b0339fb34
+# Source0-md5:	62a5e4d522314bab19288e4702480c93
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
@@ -189,6 +189,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# it seems to be only (lt_)dlopened, nothing links with it - so not needed
+rm -f $RPM_BUILD_ROOT%{_libdir}/libx11globalcomm.so
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -212,24 +215,38 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artswrapper
 # shared libraries
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsc.so.0
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsflow.so.1
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsflow_idl.so.1
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgmcop.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkmedia2.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkmedia2_idl.so.1
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmcop.so.1
 %attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmcop_mt.so.1
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsoundserver_idl.so.1
 # lt_dlopened modules (*.la needed)
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartscbackend.so.0
 %{_libdir}/libartscbackend.la
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsdsp.so.0
 %{_libdir}/libartsdsp.la
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsdsp_st.so.0
 %{_libdir}/libartsdsp_st.la
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsgslplayobject.so.0
 %{_libdir}/libartsgslplayobject.la
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartswavplayobject.so.0
 %{_libdir}/libartswavplayobject.la
 #
 %{_libdir}/mcop
@@ -254,8 +271,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libmcop.so
 %attr(755,root,root) %{_libdir}/libmcop_mt.so
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so
-# it seems to be only (lt_)dlopened, nothing links with it - so not needed
-# %attr(755,root,root) %{_libdir}/libx11globalcomm.so
 # shared libraries
 %{_libdir}/libartsflow.la
 %{_libdir}/libartsflow_idl.la
@@ -285,12 +300,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 # lt_dlopened module (.la needed)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libx11globalcomm.so.1
 %{_libdir}/libx11globalcomm.la
 
 %files qt
 %defattr(644,root,root,755)
 # shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqtmcop.so.1
 
 %files qt-devel
 %defattr(644,root,root,755)
