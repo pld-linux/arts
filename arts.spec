@@ -6,19 +6,19 @@
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.8
+%define		_kdever		3.5.9
 #
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.5.8
-Release:	3
+Version:	1.5.9
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	061ce49351d970a81f4c0a1b0339fb34
+# Source0-md5:	62a5e4d522314bab19288e4702480c93
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
