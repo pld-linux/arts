@@ -9,8 +9,8 @@
 %define		_kdever		3.5.8
 #
 Summary:	aRts sound server
-Summary(pl):	Serwer d¼wiêku
-Summary(pt_BR):	Servidor de sons usado pelo KDE
+Summary(pl.UTF-8):	Serwer dÅºwiÄ™ku
+Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.8
 Release:	1
@@ -54,29 +54,29 @@ server mixes audio from several sources in real time, allowing
 multiple sound applications to transparently share access to sound
 hardware.
 
-%description -l pl
-Analog Real-Time Synthesizer (w skrócie aRts) to modularny system do
-obs³ugi d¼wiêku i muzyki na komputerze. Za pomoc± modu³ów u¿ytkownik
-mo¿e z powodzeniem budowaæ kompleksowe narzêdzia przetwarzania
-d¼wiêku. Modu³y umo¿liwiaj± generacjê kszta³tu fali, filtrowanie,
-efekty audio, miksowanie oraz odtwarzanie d¼wiêku cyfrowego w ró¿nych
-formatach. Serwer d¼wiêku artsd umo¿liwia równie¿ jednoczesne
-odtwarzanie d¼wiêku z wielu ¼róde³.
+%description -l pl.UTF-8
+Analog Real-Time Synthesizer (w skrÃ³cie aRts) to modularny system do
+obsÅ‚ugi dÅºwiÄ™ku i muzyki na komputerze. Za pomocÄ… moduÅ‚Ã³w uÅ¼ytkownik
+moÅ¼e z powodzeniem budowaÄ‡ kompleksowe narzÄ™dzia przetwarzania
+dÅºwiÄ™ku. ModuÅ‚y umoÅ¼liwiajÄ… generacjÄ™ ksztaÅ‚tu fali, filtrowanie,
+efekty audio, miksowanie oraz odtwarzanie dÅºwiÄ™ku cyfrowego w rÃ³Å¼nych
+formatach. Serwer dÅºwiÄ™ku artsd umoÅ¼liwia rÃ³wnieÅ¼ jednoczesne
+odtwarzanie dÅºwiÄ™ku z wielu ÅºrÃ³deÅ‚.
 
-%description -l pt_BR
-O aRts é um sintetizador analógico em tempo real que é completamente
-modular. Você pode criar sons e músicas (síntese em tempo real de
-midi) usando pequenos módulos como oscilador para criar waveforms,
-vários filtros, mixers, faders, etc. Você pode configurar tudo através
-de uma interface no KDE. O Servidor aRts é controlado via CORBA. Este
-design foi escolhido para permitir que outras aplicações usem o aRts
+%description -l pt_BR.UTF-8
+O aRts Ã© um sintetizador analÃ³gico em tempo real que Ã© completamente
+modular. VocÃª pode criar sons e mÃºsicas (sÃ­ntese em tempo real de
+midi) usando pequenos mÃ³dulos como oscilador para criar waveforms,
+vÃ¡rios filtros, mixers, faders, etc. VocÃª pode configurar tudo atravÃ©s
+de uma interface no KDE. O Servidor aRts Ã© controlado via CORBA. Este
+design foi escolhido para permitir que outras aplicaÃ§Ãµes usem o aRts
 como um sintetizador (ou fornecedor de filtros). Usado pelo KDE, entre
 outros.
 
 %package devel
 Summary:	Sound server - header files
-Summary(pl):	Serwer d¼wiêku - pliki nag³ówkowe
-Summary(pt_BR):	Arquivos para desenvolvimento com o o aRts
+Summary(pl.UTF-8):	Serwer dÅºwiÄ™ku - pliki nagÅ‚Ã³wkowe
+Summary(pt_BR.UTF-8):	Arquivos para desenvolvimento com o o aRts
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 # not necessary for all libs (e.g. mcop), but propagated by artsflow
@@ -92,11 +92,11 @@ Requires:	libvorbis-devel
 %description devel
 Header files required to compile programs using arts.
 
-%description devel -l pl
-Pliki nag³ówkowe niezbêdne do budowania aplikacji korzystaj±cych z
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe niezbÄ™dne do budowania aplikacji korzystajÄ…cych z
 arts.
 
-%description devel -l pt_BR
+%description devel -l pt_BR.UTF-8
 Arquivos para desenvolvimento com o o aRts.
 
 # separate from arts-devel because they are mostly independent and have very
@@ -105,7 +105,7 @@ Arquivos para desenvolvimento com o o aRts.
 # there is no reason to separate
 %package -n artsc-devel
 Summary:	Development files for artsc libraries
-Summary(pl):	Pliki programistyczne bibliotek artsc
+Summary(pl.UTF-8):	Pliki programistyczne bibliotek artsc
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glib2-devel >= 2.0.0
@@ -115,25 +115,25 @@ Conflicts:	arts-devel < 12:1.2.0.031126-2
 Development files for artsc libraries (C interface to aRts sound
 system).
 
-%description -n artsc-devel -l pl
+%description -n artsc-devel -l pl.UTF-8
 Pliki programistyczne bibliotek artsc (interfejsu w C do systemu
-d¼wiêku aRts).
+dÅºwiÄ™ku aRts).
 
 %package X11
 Summary:	X11 dependent part of aRts
-Summary(pl):	Czê¶æ aRts wymagaj±ca X11
+Summary(pl.UTF-8):	CzÄ™Å›Ä‡ aRts wymagajÄ…ca X11
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description X11
 X11 dependent part of aRts (x11globalcomm module).
 
-%description X11 -l pl
-Czê¶æ aRts wymagaj±ca X11 (modu³ x11globalcomm).
+%description X11 -l pl.UTF-8
+CzÄ™Å›Ä‡ aRts wymagajÄ…ca X11 (moduÅ‚ x11globalcomm).
 
 %package qt
 Summary:	Qt dependend part of aRts
-Summary(pl):	Czê¶æ aRts wymagaj±ca Qt
+Summary(pl.UTF-8):	CzÄ™Å›Ä‡ aRts wymagajÄ…ca Qt
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	qt >= 6:3.2.1-4
@@ -141,12 +141,12 @@ Requires:	qt >= 6:3.2.1-4
 %description qt
 Qt dependend part of aRts (qtmcop library).
 
-%description qt -l pl
-Czê¶æ aRts wymagaj±ca Qt (biblioteka qtmcop).
+%description qt -l pl.UTF-8
+CzÄ™Å›Ä‡ aRts wymagajÄ…ca Qt (biblioteka qtmcop).
 
 %package qt-devel
 Summary:	Development files for qtmcop library
-Summary(pl):	Pliki programistyczne dla biblioteki qtmcop
+Summary(pl.UTF-8):	Pliki programistyczne dla biblioteki qtmcop
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-qt = %{epoch}:%{version}-%{release}
@@ -155,7 +155,7 @@ Requires:	qt-devel >= 6:3.2.1-4
 %description qt-devel
 Development files for qtmcop library.
 
-%description qt-devel -l pl
+%description qt-devel -l pl.UTF-8
 Pliki programistyczne dla biblioteki qtmcop.
 
 %prep
