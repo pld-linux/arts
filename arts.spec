@@ -7,13 +7,13 @@
 #
 %define		_state		stable
 %define		_kdever		3.5.9
-#
+
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.9
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -197,6 +197,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# it seems to be only (lt_)dlopened, nothing links with it - so not needed
+rm -f $RPM_BUILD_ROOT%{_libdir}/libx11globalcomm.{la,so}
+
 # remove unwanted boost deps from .la
 sed -i 's:-lboost_filesystem -lboost_regex::' $RPM_BUILD_ROOT%{_libdir}/*.la
 
@@ -223,19 +226,33 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/artswrapper
 # shared libraries
 %attr(755,root,root) %{_libdir}/libartsc.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsc.so.0
 %attr(755,root,root) %{_libdir}/libartsflow.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsflow.so.1
 %attr(755,root,root) %{_libdir}/libartsflow_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsflow_idl.so.1
 %attr(755,root,root) %{_libdir}/libgmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgmcop.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkmedia2.so.1
 %attr(755,root,root) %{_libdir}/libkmedia2_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkmedia2_idl.so.1
 %attr(755,root,root) %{_libdir}/libmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmcop.so.1
 %attr(755,root,root) %{_libdir}/libmcop_mt.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmcop_mt.so.1
 %attr(755,root,root) %{_libdir}/libsoundserver_idl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsoundserver_idl.so.1
 %attr(755,root,root) %{_libdir}/libartscbackend.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartscbackend.so.0
 %attr(755,root,root) %{_libdir}/libartsdsp.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsdsp.so.0
 %attr(755,root,root) %{_libdir}/libartsdsp_st.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsdsp_st.so.0
 %attr(755,root,root) %{_libdir}/libartsgslplayobject.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartsgslplayobject.so.0
 %attr(755,root,root) %{_libdir}/libartswavplayobject.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libartswavplayobject.so.0
 #
 %{_libdir}/mcop
 #%{_mandir}/man1/artscat.1*
@@ -290,11 +307,13 @@ rm -rf $RPM_BUILD_ROOT
 %files X11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libx11globalcomm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libx11globalcomm.so.1
 
 %files qt
 %defattr(644,root,root,755)
 # shared library
 %attr(755,root,root) %{_libdir}/libqtmcop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqtmcop.so.1
 
 %files qt-devel
 %defattr(644,root,root,755)
