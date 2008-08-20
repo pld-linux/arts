@@ -6,24 +6,25 @@
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.9
+%define		_kdever		3.5.10
 
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.5.9
-Release:	5
+Version:	1.5.10
+Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	62a5e4d522314bab19288e4702480c93
+# Source0-md5:	6da172aab2a4a44929b5fdfc30fa3efc
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-extension_loader.patch
 Patch3:		%{name}-gcc43.patch
+Patch4:		%{name}-fortify.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -168,6 +169,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 find . -type f -name '*.mcopclass' | xargs %{__sed} -i -e 's:\.la::'
 
