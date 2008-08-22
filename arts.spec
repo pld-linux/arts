@@ -39,8 +39,8 @@ BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
-BuildRequires:	libvorbis-devel
 BuildRequires:	libuuid-devel
+BuildRequires:	libvorbis-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 %{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
