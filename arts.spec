@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.10
-Release:	1
+Release:	2
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -40,6 +40,7 @@ BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
+BuildRequires:	libuuid-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 %{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
