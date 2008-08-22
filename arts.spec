@@ -6,19 +6,19 @@
 %bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 
 %define		_state		stable
-%define		_kdever		3.5.9
+%define		_kdever		3.5.10
 
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
-Version:	1.5.9
+Version:	1.5.10
 Release:	1
 Epoch:		13
 License:	LGPL
 Group:		Libraries
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	62a5e4d522314bab19288e4702480c93
+# Source0-md5:	6da172aab2a4a44929b5fdfc30fa3efc
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-libs.patch
 Patch1:		kde-ac260-lt.patch
@@ -39,6 +39,7 @@ BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libvorbis-devel
+BuildRequires:	libuuid-devel
 %{?with_nas:BuildRequires:	nas-devel}
 BuildRequires:	pkgconfig
 %{!?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.2.1-4}
