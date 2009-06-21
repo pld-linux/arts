@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.10
-Release:	8
+Release:	9
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -25,6 +25,7 @@ Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-extension_loader.patch
 Patch3:		%{name}-gcc43.patch
 Patch4:		%{name}-fortify.patch
+Patch5:		kde-am.patch
 URL:		http://www.arts-project.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	audiofile-devel
@@ -171,6 +172,7 @@ Pliki programistyczne dla biblioteki qtmcop.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 find . -type f -name '*.mcopclass' | xargs %{__sed} -i -e 's:\.la::'
 
