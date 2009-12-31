@@ -1,0 +1,24 @@
+--- kdelibs-3.5.10/admin/configure.in.min~	2008-08-19 22:28:39.000000000 +0200
++++ kdelibs-3.5.10/admin/configure.in.min	2009-08-17 19:13:01.823156420 +0200
+@@ -44,6 +44,9 @@
+ AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+ 
+ dnl Checks for programs.
++AC_PROG_CC
++AC_PROG_CXX
++
+ AC_CHECK_COMPILERS
+ AC_ENABLE_SHARED(yes)
+ AC_ENABLE_STATIC(no)
+--- kdelibs-3.5.10/configure.in.in~	2006-05-22 20:14:23.000000000 +0200
++++ kdelibs-3.5.10/configure.in.in	2009-08-17 19:16:04.549804009 +0200
+@@ -25,6 +25,9 @@
+ AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+ 
+ dnl Checks for programs.
++AC_PROG_CC
++AC_PROG_CXX
++
+ AC_CHECK_COMPILERS
+ AC_LIBLTDL_CONVENIENCE
+ 
