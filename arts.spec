@@ -33,8 +33,6 @@ BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.35.0
-BuildRequires:	docbook-dtd41-sgml
-BuildRequires:	docbook-utils >= 0.6.14
 %{?with_esd:BuildRequires:	esound-devel}
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	glib2-devel >= 2.0.0
