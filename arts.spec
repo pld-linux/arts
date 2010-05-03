@@ -2,22 +2,19 @@
 # Conditional build:
 %bcond_without	alsa	# disable ALSA support
 %bcond_with	nas	# enable NAS support
+%bcond_with	arts			# build with aRts support
 %bcond_without	esd	# disable esound support
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
-#
+
 %define		_state		stable
 %define		_kdever		3.5.10
-
-%if "%{pld_release}" == "th"
-die, not meant for th
-%endif
 
 Summary:	aRts sound server
 Summary(pl.UTF-8):	Serwer dźwięku
 Summary(pt_BR.UTF-8):	Servidor de sons usado pelo KDE
 Name:		arts
 Version:	1.5.10
-Release:	14
+Release:	15
 Epoch:		13
 License:	LGPL
 Group:		Libraries
@@ -41,6 +38,9 @@ BuildRequires:	boost-devel >= 1.35.0
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	jack-audio-connection-kit-devel
+%if "%{pld_release}" == "th"
+%{!?with_arts:BuildRequires:	die, not meant for th}
+%endif
 BuildRequires:	libmad-devel
 BuildRequires:	libtool >= 2:1.5-2
 BuildRequires:	libuuid-devel
