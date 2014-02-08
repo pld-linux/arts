@@ -1,10 +1,10 @@
 #
 # Conditional build:
-%bcond_without	alsa	# disable ALSA support
-%bcond_with	nas	# enable NAS support
-%bcond_with	arts			# build with aRts support
-%bcond_without	esd	# disable esound support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_without	alsa			# ALSA support
+%bcond_with	nas			# NAS support
+%bcond_with	arts			# aRts support (i.e. actually build this package)
+%bcond_without	esd			# EsounD support
+%bcond_without	hidden_visibility	# '--fvisibility=hidden' & '--fvisibility-inlines-hidden' g++ opts
 
 %define		_state		stable
 %define		_kdever		3.5.10
@@ -208,7 +208,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # it seems to be only (lt_)dlopened, nothing links with it - so not needed
-rm -f $RPM_BUILD_ROOT%{_libdir}/libx11globalcomm.{la,so}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libx11globalcomm.{la,so}
 
 # remove unwanted boost deps from .la
 sed -i 's:-lboost_filesystem -lboost_regex::' $RPM_BUILD_ROOT%{_libdir}/*.la
